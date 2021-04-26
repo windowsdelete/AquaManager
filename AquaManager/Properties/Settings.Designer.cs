@@ -58,5 +58,17 @@ namespace AquaManager.Properties {
                 this["accessLevel"] = value;
             }
         }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("False")]
+        public bool autoUpdater {
+            get {
+                return ((bool)(this["autoUpdater"]));
+            }
+            set {
+                this["autoUpdater"] = value;
+            }
+        }
     }
 }

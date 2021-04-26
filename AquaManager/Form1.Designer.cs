@@ -34,13 +34,13 @@ namespace AquaManager
             this.metroTabPage1 = new MetroFramework.Controls.MetroTabPage();
             this.theTime = new MetroFramework.Controls.MetroLabel();
             this.projectsTab = new MetroFramework.Controls.MetroTabPage();
-            this.projectsCancelButton = new MetroFramework.Controls.MetroTile();
-            this.projectsDeleteButton = new MetroFramework.Controls.MetroTile();
+            this.projectsFourthButton = new MetroFramework.Controls.MetroTile();
+            this.projectsThirdButton = new MetroFramework.Controls.MetroTile();
             this.projectsGrid = new System.Windows.Forms.DataGridView();
             this.metroLabel1 = new MetroFramework.Controls.MetroLabel();
-            this.projectsAddButton = new MetroFramework.Controls.MetroTile();
-            this.projectsUpdateButton = new MetroFramework.Controls.MetroTile();
-            this.panel1 = new System.Windows.Forms.Panel();
+            this.projectsFirstButton = new MetroFramework.Controls.MetroTile();
+            this.projectsSecondButton = new MetroFramework.Controls.MetroTile();
+            this.projectsEditPanel = new System.Windows.Forms.Panel();
             this.projectsFinishDatePicker = new System.Windows.Forms.DateTimePicker();
             this.projectsNameLabel = new MetroFramework.Controls.MetroLabel();
             this.projectsDeadLinePicker = new System.Windows.Forms.DateTimePicker();
@@ -67,7 +67,7 @@ namespace AquaManager
             this.metroTabPage1.SuspendLayout();
             this.projectsTab.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.projectsGrid)).BeginInit();
-            this.panel1.SuspendLayout();
+            this.projectsEditPanel.SuspendLayout();
             this.SuspendLayout();
             // 
             // metroTabs
@@ -109,13 +109,13 @@ namespace AquaManager
             // 
             // projectsTab
             // 
-            this.projectsTab.Controls.Add(this.projectsCancelButton);
-            this.projectsTab.Controls.Add(this.projectsDeleteButton);
+            this.projectsTab.Controls.Add(this.projectsFourthButton);
+            this.projectsTab.Controls.Add(this.projectsThirdButton);
             this.projectsTab.Controls.Add(this.projectsGrid);
             this.projectsTab.Controls.Add(this.metroLabel1);
-            this.projectsTab.Controls.Add(this.projectsAddButton);
-            this.projectsTab.Controls.Add(this.projectsUpdateButton);
-            this.projectsTab.Controls.Add(this.panel1);
+            this.projectsTab.Controls.Add(this.projectsFirstButton);
+            this.projectsTab.Controls.Add(this.projectsSecondButton);
+            this.projectsTab.Controls.Add(this.projectsEditPanel);
             this.projectsTab.HorizontalScrollbarBarColor = true;
             this.projectsTab.Location = new System.Drawing.Point(4, 35);
             this.projectsTab.Name = "projectsTab";
@@ -124,25 +124,27 @@ namespace AquaManager
             this.projectsTab.Text = "Проекты";
             this.projectsTab.VerticalScrollbarBarColor = true;
             // 
-            // projectsCancelButton
+            // projectsFourthButton
             // 
-            this.projectsCancelButton.Location = new System.Drawing.Point(3, 319);
-            this.projectsCancelButton.Name = "projectsCancelButton";
-            this.projectsCancelButton.Size = new System.Drawing.Size(97, 92);
-            this.projectsCancelButton.Style = MetroFramework.MetroColorStyle.Purple;
-            this.projectsCancelButton.TabIndex = 7;
-            this.projectsCancelButton.Text = "Назад";
-            this.projectsCancelButton.Visible = false;
+            this.projectsFourthButton.Location = new System.Drawing.Point(3, 319);
+            this.projectsFourthButton.Name = "projectsFourthButton";
+            this.projectsFourthButton.Size = new System.Drawing.Size(97, 92);
+            this.projectsFourthButton.Style = MetroFramework.MetroColorStyle.Purple;
+            this.projectsFourthButton.TabIndex = 7;
+            this.projectsFourthButton.Text = "Назад";
+            this.projectsFourthButton.Visible = false;
+            this.projectsFourthButton.Click += new System.EventHandler(this.projectsButtonActions);
             // 
-            // projectsDeleteButton
+            // projectsThirdButton
             // 
-            this.projectsDeleteButton.Location = new System.Drawing.Point(3, 221);
-            this.projectsDeleteButton.Name = "projectsDeleteButton";
-            this.projectsDeleteButton.Size = new System.Drawing.Size(97, 92);
-            this.projectsDeleteButton.Style = MetroFramework.MetroColorStyle.Purple;
-            this.projectsDeleteButton.TabIndex = 6;
-            this.projectsDeleteButton.Text = "Удалить";
-            this.projectsDeleteButton.Visible = false;
+            this.projectsThirdButton.Location = new System.Drawing.Point(3, 221);
+            this.projectsThirdButton.Name = "projectsThirdButton";
+            this.projectsThirdButton.Size = new System.Drawing.Size(97, 92);
+            this.projectsThirdButton.Style = MetroFramework.MetroColorStyle.Purple;
+            this.projectsThirdButton.TabIndex = 6;
+            this.projectsThirdButton.Text = "Удалить";
+            this.projectsThirdButton.Visible = false;
+            this.projectsThirdButton.Click += new System.EventHandler(this.projectsButtonActions);
             // 
             // projectsGrid
             // 
@@ -151,10 +153,10 @@ namespace AquaManager
             this.projectsGrid.AutoSizeColumnsMode = System.Windows.Forms.DataGridViewAutoSizeColumnsMode.Fill;
             this.projectsGrid.BackgroundColor = System.Drawing.Color.White;
             this.projectsGrid.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            this.projectsGrid.Location = new System.Drawing.Point(645, 3);
+            this.projectsGrid.Location = new System.Drawing.Point(106, 3);
             this.projectsGrid.Name = "projectsGrid";
             this.projectsGrid.ReadOnly = true;
-            this.projectsGrid.Size = new System.Drawing.Size(435, 430);
+            this.projectsGrid.Size = new System.Drawing.Size(974, 430);
             this.projectsGrid.TabIndex = 2;
             this.projectsGrid.CellClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.editProjects);
             // 
@@ -167,45 +169,48 @@ namespace AquaManager
             this.metroLabel1.TabIndex = 4;
             this.metroLabel1.Text = "Действия";
             // 
-            // projectsAddButton
+            // projectsFirstButton
             // 
-            this.projectsAddButton.Location = new System.Drawing.Point(3, 25);
-            this.projectsAddButton.Name = "projectsAddButton";
-            this.projectsAddButton.Size = new System.Drawing.Size(97, 92);
-            this.projectsAddButton.Style = MetroFramework.MetroColorStyle.Purple;
-            this.projectsAddButton.TabIndex = 3;
-            this.projectsAddButton.Text = "Добавить";
+            this.projectsFirstButton.Location = new System.Drawing.Point(3, 25);
+            this.projectsFirstButton.Name = "projectsFirstButton";
+            this.projectsFirstButton.Size = new System.Drawing.Size(97, 92);
+            this.projectsFirstButton.Style = MetroFramework.MetroColorStyle.Purple;
+            this.projectsFirstButton.TabIndex = 3;
+            this.projectsFirstButton.Text = "Добавить";
+            this.projectsFirstButton.Click += new System.EventHandler(this.projectsButtonActions);
             // 
-            // projectsUpdateButton
+            // projectsSecondButton
             // 
-            this.projectsUpdateButton.Location = new System.Drawing.Point(3, 123);
-            this.projectsUpdateButton.Name = "projectsUpdateButton";
-            this.projectsUpdateButton.Size = new System.Drawing.Size(97, 92);
-            this.projectsUpdateButton.Style = MetroFramework.MetroColorStyle.Purple;
-            this.projectsUpdateButton.TabIndex = 5;
-            this.projectsUpdateButton.Text = "Обновить";
+            this.projectsSecondButton.Location = new System.Drawing.Point(3, 123);
+            this.projectsSecondButton.Name = "projectsSecondButton";
+            this.projectsSecondButton.Size = new System.Drawing.Size(97, 92);
+            this.projectsSecondButton.Style = MetroFramework.MetroColorStyle.Purple;
+            this.projectsSecondButton.TabIndex = 5;
+            this.projectsSecondButton.Text = "Обновить";
+            this.projectsSecondButton.Click += new System.EventHandler(this.projectsButtonActions);
             // 
-            // panel1
+            // projectsEditPanel
             // 
-            this.panel1.BackColor = System.Drawing.Color.White;
-            this.panel1.Controls.Add(this.projectsFinishDatePicker);
-            this.panel1.Controls.Add(this.projectsNameLabel);
-            this.panel1.Controls.Add(this.projectsDeadLinePicker);
-            this.panel1.Controls.Add(this.projectsNameText);
-            this.panel1.Controls.Add(this.projectsCreateDatePicker);
-            this.panel1.Controls.Add(this.projectsTeamLabel);
-            this.panel1.Controls.Add(this.projectsTypeLabel);
-            this.panel1.Controls.Add(this.projectsStatusLabel);
-            this.panel1.Controls.Add(this.projectsStatusCombo);
-            this.panel1.Controls.Add(this.projectsCreateDateLabel);
-            this.panel1.Controls.Add(this.projectsTypeCombo);
-            this.panel1.Controls.Add(this.projectsDeadLineLabel);
-            this.panel1.Controls.Add(this.projectsTeamCombo);
-            this.panel1.Controls.Add(this.projectsFinishDateLabel);
-            this.panel1.Location = new System.Drawing.Point(174, 25);
-            this.panel1.Name = "panel1";
-            this.panel1.Size = new System.Drawing.Size(431, 313);
-            this.panel1.TabIndex = 22;
+            this.projectsEditPanel.BackColor = System.Drawing.Color.White;
+            this.projectsEditPanel.Controls.Add(this.projectsFinishDatePicker);
+            this.projectsEditPanel.Controls.Add(this.projectsNameLabel);
+            this.projectsEditPanel.Controls.Add(this.projectsDeadLinePicker);
+            this.projectsEditPanel.Controls.Add(this.projectsNameText);
+            this.projectsEditPanel.Controls.Add(this.projectsCreateDatePicker);
+            this.projectsEditPanel.Controls.Add(this.projectsTeamLabel);
+            this.projectsEditPanel.Controls.Add(this.projectsTypeLabel);
+            this.projectsEditPanel.Controls.Add(this.projectsStatusLabel);
+            this.projectsEditPanel.Controls.Add(this.projectsStatusCombo);
+            this.projectsEditPanel.Controls.Add(this.projectsCreateDateLabel);
+            this.projectsEditPanel.Controls.Add(this.projectsTypeCombo);
+            this.projectsEditPanel.Controls.Add(this.projectsDeadLineLabel);
+            this.projectsEditPanel.Controls.Add(this.projectsTeamCombo);
+            this.projectsEditPanel.Controls.Add(this.projectsFinishDateLabel);
+            this.projectsEditPanel.Location = new System.Drawing.Point(174, 25);
+            this.projectsEditPanel.Name = "projectsEditPanel";
+            this.projectsEditPanel.Size = new System.Drawing.Size(431, 313);
+            this.projectsEditPanel.TabIndex = 22;
+            this.projectsEditPanel.Visible = false;
             // 
             // projectsFinishDatePicker
             // 
@@ -425,8 +430,8 @@ namespace AquaManager
             this.projectsTab.ResumeLayout(false);
             this.projectsTab.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.projectsGrid)).EndInit();
-            this.panel1.ResumeLayout(false);
-            this.panel1.PerformLayout();
+            this.projectsEditPanel.ResumeLayout(false);
+            this.projectsEditPanel.PerformLayout();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -447,17 +452,17 @@ namespace AquaManager
         private MetroFramework.Controls.MetroToggle autoUpdateToggle;
         private MetroFramework.Controls.MetroLabel autoUpdateLabel;
         private MetroFramework.Controls.MetroLabel metroLabel1;
-        private MetroFramework.Controls.MetroTile projectsAddButton;
+        private MetroFramework.Controls.MetroTile projectsFirstButton;
         private System.Windows.Forms.Timer autoUpadteTimer;
-        private MetroFramework.Controls.MetroTile projectsUpdateButton;
+        private MetroFramework.Controls.MetroTile projectsSecondButton;
         private MetroFramework.Controls.MetroLabel projectsCreateDateLabel;
         private MetroFramework.Controls.MetroLabel projectsStatusLabel;
         private MetroFramework.Controls.MetroLabel projectsTypeLabel;
         private MetroFramework.Controls.MetroLabel projectsTeamLabel;
         private MetroFramework.Controls.MetroTextBox projectsNameText;
         private MetroFramework.Controls.MetroLabel projectsNameLabel;
-        private MetroFramework.Controls.MetroTile projectsCancelButton;
-        private MetroFramework.Controls.MetroTile projectsDeleteButton;
+        private MetroFramework.Controls.MetroTile projectsFourthButton;
+        private MetroFramework.Controls.MetroTile projectsThirdButton;
         private MetroFramework.Controls.MetroLabel projectsDeadLineLabel;
         private MetroFramework.Controls.MetroLabel projectsFinishDateLabel;
         private System.Windows.Forms.DateTimePicker projectsFinishDatePicker;
@@ -466,7 +471,7 @@ namespace AquaManager
         private MetroFramework.Controls.MetroComboBox projectsStatusCombo;
         private MetroFramework.Controls.MetroComboBox projectsTypeCombo;
         private MetroFramework.Controls.MetroComboBox projectsTeamCombo;
-        private System.Windows.Forms.Panel panel1;
+        private System.Windows.Forms.Panel projectsEditPanel;
     }
 }
 
