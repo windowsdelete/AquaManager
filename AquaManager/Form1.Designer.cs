@@ -63,6 +63,7 @@ namespace AquaManager
             this.autoUpdateToggle = new MetroFramework.Controls.MetroToggle();
             this.autoUpdateLabel = new MetroFramework.Controls.MetroLabel();
             this.autoUpadteTimer = new System.Windows.Forms.Timer(this.components);
+            this.projectsClearCheck = new MetroFramework.Controls.MetroCheckBox();
             this.metroTabs.SuspendLayout();
             this.metroTabPage1.SuspendLayout();
             this.projectsTab.SuspendLayout();
@@ -192,6 +193,7 @@ namespace AquaManager
             // projectsEditPanel
             // 
             this.projectsEditPanel.BackColor = System.Drawing.Color.White;
+            this.projectsEditPanel.Controls.Add(this.projectsClearCheck);
             this.projectsEditPanel.Controls.Add(this.projectsFinishDatePicker);
             this.projectsEditPanel.Controls.Add(this.projectsNameLabel);
             this.projectsEditPanel.Controls.Add(this.projectsDeadLinePicker);
@@ -208,13 +210,14 @@ namespace AquaManager
             this.projectsEditPanel.Controls.Add(this.projectsFinishDateLabel);
             this.projectsEditPanel.Location = new System.Drawing.Point(174, 25);
             this.projectsEditPanel.Name = "projectsEditPanel";
-            this.projectsEditPanel.Size = new System.Drawing.Size(431, 313);
+            this.projectsEditPanel.Size = new System.Drawing.Size(538, 313);
             this.projectsEditPanel.TabIndex = 22;
             this.projectsEditPanel.Visible = false;
             // 
             // projectsFinishDatePicker
             // 
             this.projectsFinishDatePicker.CustomFormat = "yyyy-MM-dd HH:mm:ss";
+            this.projectsFinishDatePicker.Enabled = false;
             this.projectsFinishDatePicker.Location = new System.Drawing.Point(171, 280);
             this.projectsFinishDatePicker.Name = "projectsFinishDatePicker";
             this.projectsFinishDatePicker.Size = new System.Drawing.Size(237, 20);
@@ -241,6 +244,7 @@ namespace AquaManager
             // projectsNameText
             // 
             this.projectsNameText.Location = new System.Drawing.Point(171, 28);
+            this.projectsNameText.MaxLength = 50;
             this.projectsNameText.Name = "projectsNameText";
             this.projectsNameText.Size = new System.Drawing.Size(237, 23);
             this.projectsNameText.TabIndex = 9;
@@ -248,6 +252,7 @@ namespace AquaManager
             // projectsCreateDatePicker
             // 
             this.projectsCreateDatePicker.CustomFormat = "yyyy-MM-dd HH:mm:ss";
+            this.projectsCreateDatePicker.Enabled = false;
             this.projectsCreateDatePicker.Location = new System.Drawing.Point(171, 193);
             this.projectsCreateDatePicker.Name = "projectsCreateDatePicker";
             this.projectsCreateDatePicker.Size = new System.Drawing.Size(237, 20);
@@ -411,6 +416,19 @@ namespace AquaManager
             this.autoUpadteTimer.Interval = 5000;
             this.autoUpadteTimer.Tick += new System.EventHandler(this.autoUpadteTimer_Tick);
             // 
+            // projectsClearCheck
+            // 
+            this.projectsClearCheck.AutoSize = true;
+            this.projectsClearCheck.Checked = true;
+            this.projectsClearCheck.CheckState = System.Windows.Forms.CheckState.Checked;
+            this.projectsClearCheck.Location = new System.Drawing.Point(415, 284);
+            this.projectsClearCheck.Name = "projectsClearCheck";
+            this.projectsClearCheck.Size = new System.Drawing.Size(118, 15);
+            this.projectsClearCheck.TabIndex = 22;
+            this.projectsClearCheck.Text = "Оставить пустым";
+            this.projectsClearCheck.UseVisualStyleBackColor = true;
+            this.projectsClearCheck.CheckedChanged += new System.EventHandler(this.projectsClearCheck_CheckedChanged);
+            // 
             // Form1
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -472,6 +490,7 @@ namespace AquaManager
         private MetroFramework.Controls.MetroComboBox projectsTypeCombo;
         private MetroFramework.Controls.MetroComboBox projectsTeamCombo;
         private System.Windows.Forms.Panel projectsEditPanel;
+        private MetroFramework.Controls.MetroCheckBox projectsClearCheck;
     }
 }
 

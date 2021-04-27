@@ -75,6 +75,7 @@ namespace AquaManager
         // Переменные и константы
         MySqlConnection sqlProjects = new MySqlConnection(Properties.Settings.Default.connectText);
         private int switchID;
+        string allowedchar = "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZабвгдеёжзийклмнопрстуфхцчшщъыьэюяАБВГДЕЁЖЗИЙКЛМНОПРСТУФХЦЧШЩЪЫЬЭЮЯ0123456789 ";
         private const string primkeyProjects = "id_Projects", requestProjects = "Select projects.id_Projects, projects.NameProjects, teams.NameTeams, type.NameType, status.NameStatus, projects.CreateDate, projects.DeadLine, projects.FinishDate " +
                     "From projects, teams, type, status " +
                     "Where projects.id_Teams = teams.id_Teams and projects.id_Type = type.id_Type and projects.id_Status = status.id_Status"; // Проекты
@@ -225,37 +226,70 @@ namespace AquaManager
                 switch (selectedButton)
                 {
                     case "Записать":
-                        sqlProjects.Open();
-                        request =
-                            "INSERT INTO projects " +
-                            "(NameProjects, id_Teams, id_Type, id_Status, CreateDate, DeadLine) " +
-                            "values ('" + projectsNameText.Text + "'," + projectsTeamCombo.SelectedValue + "," +
-                            projectsTypeCombo.SelectedValue + "," + projectsStatusCombo.SelectedValue + ",'" + DateTime.Now.ToString("yyyy-MM-dd HH:mm:ss") + "','" +
-                            projectsDeadLinePicker.Value.ToString("yyyy-MM-dd") + "')";
-                        MySqlDataAdapter adapterProjectsAdd = new MySqlDataAdapter(request, sqlProjects);
-                        DataTable dataProjectsAdd = new DataTable();
-                        adapterProjectsAdd.Fill(dataProjectsAdd);
-                        sqlProjects.Close();
-                        projectsEndAction();
+                        if (projectsDeadLinePicker.Value < projectsCreateDatePicker.Value)
+                            MessageBox.Show("Дедлайн не может быть раньше или равным дате добавления проекта.");
+                        else if (String.IsNullOrEmpty(projectsNameText.Text))
+                            MessageBox.Show("Имя проекта не может быть пустым.");
+                        else if (!projectsNameText.Text.All(allowedchar.Contains))
+                            MessageBox.Show("Название проекта не может содержать спецсимволы.");
+                        else
+                        {
+                            sqlProjects.Open();
+                            request =
+                                "INSERT INTO projects " +
+                                "(NameProjects, id_Teams, id_Type, id_Status, CreateDate, DeadLine) " +
+                                "values ('" + projectsNameText.Text + "'," + projectsTeamCombo.SelectedValue + "," +
+                                projectsTypeCombo.SelectedValue + "," + projectsStatusCombo.SelectedValue + ",'" + DateTime.Now.ToString("yyyy-MM-dd HH:mm:ss") + "','" +
+                                projectsDeadLinePicker.Value.ToString("yyyy-MM-dd") + "')";
+                            MySqlDataAdapter adapterProjectsAdd = new MySqlDataAdapter(request, sqlProjects);
+                            DataTable dataProjectsAdd = new DataTable();
+                            adapterProjectsAdd.Fill(dataProjectsAdd);
+                            sqlProjects.Close();
+                            projectsEndAction();
+                        }
                         break;
 
                     case "Изменить":
-                        sqlProjects.Open();
-                        request =
-                            "Update projects set " +
-                            "NameProjects= '" + projectsNameText.Text + "', " +
-                            "id_Teams=" + projectsTeamCombo.SelectedValue + ", " +
-                            "id_Type=" + projectsTypeCombo.SelectedValue + ", " +
-                            "id_Status=" + projectsStatusCombo.SelectedValue + ", " +
-                            "CreateDate= '" + projectsCreateDatePicker.Value.ToString("yyyy-MM-dd HH:mm:ss") + "', " +
-                            "DeadLine= '" + projectsDeadLinePicker.Value.ToString("yyyy-MM-dd HH:mm:ss") + "', " +
-                            "FinishDate= '" + projectsFinishDatePicker.Value.ToString("yyyy-MM-dd HH:mm:ss") + "' " +
-                            "Where id_Projects=" + switchID;
-                        MySqlDataAdapter adapterProjectsEdit = new MySqlDataAdapter(request, sqlProjects);
-                        DataTable dataProjectsEdit = new DataTable();
-                        adapterProjectsEdit.Fill(dataProjectsEdit);
-                        sqlProjects.Close();
-                        projectsEndAction();
+                        if (projectsDeadLinePicker.Value < projectsCreateDatePicker.Value)
+                            MessageBox.Show("Дедлайн не может быть раньше или равным дате добавления проекта.");
+                        else if (projectsFinishDatePicker.Value < projectsCreateDatePicker.Value && !projectsClearCheck.Checked)
+                            MessageBox.Show("Дата завершения не может быть раньше или равным дате добавления проекта.");
+                        else if (String.IsNullOrEmpty(projectsNameText.Text))
+                            MessageBox.Show("Имя проекта не может быть пустым.");
+                        else if (!projectsNameText.Text.All(allowedchar.Contains))
+                            MessageBox.Show("Название проекта не может содержать спецсимволы.");
+                        else if (projectsClearCheck.Checked && projectsStatusCombo.SelectedValue.ToString() == "3")
+                            MessageBox.Show("Проект не может быть завершён без даты.");
+                        else
+                        {
+                            sqlProjects.Open();
+                            if (projectsClearCheck.Checked)
+                                request =
+                                    "Update projects set " +
+                                    "NameProjects= '" + projectsNameText.Text + "', " +
+                                    "id_Teams=" + projectsTeamCombo.SelectedValue + ", " +
+                                    "id_Type=" + projectsTypeCombo.SelectedValue + ", " +
+                                    "id_Status=" + projectsStatusCombo.SelectedValue + ", " +
+                                    "DeadLine= '" + projectsDeadLinePicker.Value.ToString("yyyy-MM-dd") + "', " +
+                                    "FinishDate= " + "NULL " +
+                                    "Where id_Projects=" + switchID;
+                            else
+                                request =
+                                    "Update projects set " +
+                                    "NameProjects= '" + projectsNameText.Text + "', " +
+                                    "id_Teams=" + projectsTeamCombo.SelectedValue + ", " +
+                                    "id_Type=" + projectsTypeCombo.SelectedValue + ", " +
+                                    "id_Status=" + projectsStatusCombo.SelectedValue + ", " +
+                                    "DeadLine= '" + projectsDeadLinePicker.Value.ToString("yyyy-MM-dd") + "', " +
+                                    "FinishDate= '" + projectsFinishDatePicker.Value.ToString("yyyy-MM-dd") + "' " +
+                                    "Where id_Projects=" + switchID;
+                            MySqlDataAdapter adapterProjectsEdit = new MySqlDataAdapter(request, sqlProjects);
+                            DataTable dataProjectsEdit = new DataTable();
+                            adapterProjectsEdit.Fill(dataProjectsEdit);
+                            sqlProjects.Close();
+                            MessageBox.Show(projectsStatusCombo.SelectedIndex.ToString());
+                            projectsEndAction();
+                        }
                         break;
 
                     case "Удалить":
@@ -272,10 +306,12 @@ namespace AquaManager
 
                     case "Добавить":
                         loadProjects();
+                        projectsNameText.Text = "";
                         projectsFinishDateLabel.Visible = false;
                         projectsFinishDatePicker.Visible = false;
+                        projectsClearCheck.Visible = false;
                         projectsCreateDatePicker.Value = DateTime.Now;
-                        projectsCreateDatePicker.Enabled = false;
+                        projectsStatusCombo.Enabled = false;
                         autoUpdateController(true);
                         projectsGrid.Visible = false;
                         projectsEditPanel.Visible = true;
@@ -298,12 +334,33 @@ namespace AquaManager
             }
         }
 
+        private void projectsClearCheck_CheckedChanged(object sender, EventArgs e)
+        {
+            if (projectsClearCheck.Checked)
+            {
+                projectsFinishDatePicker.Enabled = false;
+                projectsStatusCombo.SelectedValue = 2;
+                projectsStatusCombo.Enabled = true;
+            }
+            else if (!projectsClearCheck.Checked)
+            {
+                projectsFinishDatePicker.Enabled = true;
+                projectsStatusCombo.SelectedValue = 3;
+                projectsStatusCombo.Enabled = false;
+            }
+        }
+
         private void projectsEndAction()
         {
             projectsGrid.Visible = true;
             projectsEditPanel.Visible = false;
             projectsThirdButton.Visible = false;
             projectsFourthButton.Visible = false;
+            projectsFinishDateLabel.Visible = true;
+            projectsFinishDatePicker.Visible = true;
+            projectsClearCheck.Visible = true;
+            projectsClearCheck.Checked = true;
+            projectsStatusCombo.Enabled = true;
             autoUpdateController(false);
             projectsFirstButton.Text = "Добавить";
             projectsSecondButton.Text = "Обновить";
