@@ -49,10 +49,10 @@ namespace AquaManager.Properties {
         
         [global::System.Configuration.UserScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        [global::System.Configuration.DefaultSettingValueAttribute("")]
-        public string accessLevel {
+        [global::System.Configuration.DefaultSettingValueAttribute("0")]
+        public int accessLevel {
             get {
-                return ((string)(this["accessLevel"]));
+                return ((int)(this["accessLevel"]));
             }
             set {
                 this["accessLevel"] = value;
