@@ -5,8 +5,8 @@
     <Setting Name="connectText" Type="System.String" Scope="User">
       <Value Profile="(Default)">Server=localhost;DataBase=aquamanager;Uid=root;Pwd=root;charset=utf8</Value>
     </Setting>
-    <Setting Name="whois" Type="System.String" Scope="User">
-      <Value Profile="(Default)" />
+    <Setting Name="whois" Type="System.Int32" Scope="User">
+      <Value Profile="(Default)">0</Value>
     </Setting>
     <Setting Name="accessLevel" Type="System.Int32" Scope="User">
       <Value Profile="(Default)">0</Value>

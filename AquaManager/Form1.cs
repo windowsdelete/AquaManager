@@ -18,7 +18,6 @@ namespace AquaManager
         {
             InitializeComponent();
             this.Select();
-            updateAll();
             //metroTabs.TabPages.Remove(metroTabPage2);
             // metroTabs.TabPages.Insert(2, metroTabPage2);
         }
@@ -26,7 +25,7 @@ namespace AquaManager
         // Таймеры обновления контента
         private void getTime_Tick(object sender, EventArgs e)
         {
-            theTime.Text = DateTime.Now.ToString();
+            theTime.Text = "Текущие дата и время: " + DateTime.Now.ToString();
         }
 
         private void autoUpadteTimer_Tick(object sender, EventArgs e)
@@ -39,6 +38,7 @@ namespace AquaManager
             getProjects();
             getWorkers();
             getTeams();
+            getDashboard();
         }
 
         // Автообновление
@@ -78,6 +78,7 @@ namespace AquaManager
 
         // Переменные и константы
         MySqlConnection sqlAuth = new MySqlConnection(Properties.Settings.Default.connectText);
+        MySqlConnection sqlDashboard = new MySqlConnection(Properties.Settings.Default.connectText);
         MySqlConnection sqlProjects = new MySqlConnection(Properties.Settings.Default.connectText);
         MySqlConnection sqlWorkers = new MySqlConnection(Properties.Settings.Default.connectText);
         MySqlConnection sqlTeams = new MySqlConnection(Properties.Settings.Default.connectText);
@@ -805,7 +806,7 @@ namespace AquaManager
                     string pwdBase = Convert.ToBase64String(pwdHash);
                     sqlAuth.Open();
                     MySqlDataAdapter adapterAuth = new MySqlDataAdapter
-                        ("Select id_Positions, Surname, Name from Workers " +
+                        ("Select id_Positions, Surname, Name, id_Workers from Workers " +
                         "Where Username='" + authLoginText.Text + "' " +
                         "and Password='" + pwdBase + "'", sqlAuth);
                     DataTable dataAuth = new DataTable();
@@ -822,6 +823,7 @@ namespace AquaManager
                         adapterAuthAccess.Fill(dataAuthAccess);
                         sqlAuth.Close();
                         Properties.Settings.Default.accessLevel = Convert.ToInt32(dataAuthAccess.Rows[0][0]);
+                        Properties.Settings.Default.whois = Convert.ToInt32(dataAuth.Rows[0][3]);
                         helloLabel.Text = "Здравствуйте, " + dataAuth.Rows[0][1].ToString() + " " + dataAuth.Rows[0][2].ToString();
                         accessLevelLabel.Text = "Ваш уровень доступа: " + Properties.Settings.Default.accessLevel;
                         authPanel.Visible = false;
@@ -829,12 +831,60 @@ namespace AquaManager
                         metroTabs.SelectTab(0);
                         autoUpdateLabel.Visible = true;
                         autoUpdateToggle.Visible = true;
+                        updateAll();
                     }
                     else
                     {
                         MessageBox.Show("Неверные данные для авторизации.");
                     }
                 }
+            }
+            catch
+            {
+                MessageBox.Show("Peace, Death!");
+            }
+        }
+
+        private void getDashboard()
+        {
+            try
+            {
+                // Получение данных из таблицы
+                //MySqlConnection sqlProjects = new MySqlConnection(Properties.Settings.Default.connectText);
+                sqlDashboard.Open();
+                MySqlDataAdapter adapterDashboard = new MySqlDataAdapter("Select id_Teams from Workers " +
+                        "Where id_Workers=" + Properties.Settings.Default.whois, sqlDashboard);
+                DataTable dataDashboard = new DataTable();
+                adapterDashboard.Fill(dataDashboard);
+                dashboardGrid.DataSource = dataDashboard;
+                //dashboardGrid.Columns[primkeyDashboard].Visible = false;
+                sqlDashboard.Close();
+
+                if (dataDashboard.Rows.Count > 0)
+                {
+                    int teamsid = Convert.ToInt32(dataDashboard.Rows[0][0]);
+                    sqlDashboard.Open();
+                    MySqlDataAdapter adapterDashboardTeams = new MySqlDataAdapter
+                        ("Select projects.NameProjects, type.NameType, projects.CreateDate, projects.DeadLine " +
+                        "from Projects, type " +
+                        "Where id_Teams=" + teamsid + " and projects.id_Type = type.id_Type and projects.id_Status=2", sqlAuth);
+                    DataTable dataDashboardTeams = new DataTable();
+                    adapterDashboardTeams.Fill(dataDashboardTeams);
+                    dashboardGrid.DataSource = dataDashboardTeams;
+                    sqlDashboard.Close();
+                    dashboardGrid.Columns[0].HeaderText = "Название";
+                    dashboardGrid.Columns[1].HeaderText = "Тип";
+                    dashboardGrid.Columns[2].HeaderText = "Дата добавления";
+                    dashboardGrid.Columns[3].HeaderText = "Дедлайн";
+                }
+
+
+               // requestProjects = "Select projects.id_Projects, projects.NameProjects, teams.NameTeams, type.NameType, status.NameStatus, projects.CreateDate, projects.DeadLine, projects.FinishDate " +
+                   // "From projects, teams, type, status " +
+                    //"Where projects.id_Teams = teams.id_Teams and projects.id_Type = type.id_Type and projects.id_Status = status.id_Status"; // Проекты
+
+                // Изменение названий столбцов
+                //dashboardGrid.Columns[1].HeaderText = "Название";
             }
             catch
             {

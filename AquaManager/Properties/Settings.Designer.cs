@@ -37,10 +37,10 @@ namespace AquaManager.Properties {
         
         [global::System.Configuration.UserScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        [global::System.Configuration.DefaultSettingValueAttribute("")]
-        public string whois {
+        [global::System.Configuration.DefaultSettingValueAttribute("0")]
+        public int whois {
             get {
-                return ((string)(this["whois"]));
+                return ((int)(this["whois"]));
             }
             set {
                 this["whois"] = value;
