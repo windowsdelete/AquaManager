@@ -18,6 +18,7 @@ namespace AquaManager
         {
             InitializeComponent();
             this.Select();
+            autoUpdateTimeCombo.SelectedIndex = 0;
             metroTabs.TabPages.Remove(adminTab);
         }
 
@@ -91,6 +92,8 @@ namespace AquaManager
         MySqlConnection sqlAdmin = new MySqlConnection(Properties.Settings.Default.connectText);
 
         private int switchID;
+        string errorMessage = "Проверьте подключение к интернету и/или обратитесь к системному администратору.";
+        string appName = "AquaManager";
         string allowedchar = "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZабвгдеёжзийклмнопрстуфхцчшщъыьэюяАБВГДЕЁЖЗИЙКЛМНОПРСТУФХЦЧШЩЪЫЬЭЮЯ0123456789 @.";
         private const string primkeyProjects = "id_Projects", requestProjects = "Select projects.id_Projects, projects.NameProjects, teams.NameTeams, type.NameType, status.NameStatus, projects.CreateDate, projects.DeadLine, projects.FinishDate " +
                     "From projects, teams, type, status " +
@@ -105,8 +108,6 @@ namespace AquaManager
 
         private const string primkeyAdmin = "id_Workers", requestAdmin = "Select workers.id_Workers, workers.Surname, workers.Name, workers.Username, workers.Password, workers.Email " +
             "From workers";
-
-
 
         private void getProjects()
         {
@@ -130,7 +131,7 @@ namespace AquaManager
             }
             catch
             {
-                MessageBox.Show("Peace, Death!");
+                MessageBox.Show(errorMessage, appName, MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
         }
 
@@ -167,7 +168,7 @@ namespace AquaManager
             }
             catch
             {
-                MessageBox.Show("Peace, Death!");
+                MessageBox.Show(errorMessage, appName, MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
         }
 
@@ -232,12 +233,12 @@ namespace AquaManager
                     }
                     catch
                     {
-                        MessageBox.Show("Peace, Death!");
+                        MessageBox.Show(errorMessage, appName, MessageBoxButtons.OK, MessageBoxIcon.Error);
                     }
                 }
             }
             else
-                MessageBox.Show("Минимальный уровень доступа для изменения: 2");
+                MessageBox.Show("Минимальный уровень доступа для изменения: 2", appName, MessageBoxButtons.OK, MessageBoxIcon.Warning);
         }
 
         private void projectsButtonActions(object sender, EventArgs e)
@@ -251,11 +252,11 @@ namespace AquaManager
                 {
                     case "Записать":
                         if (projectsDeadLinePicker.Value < projectsCreateDatePicker.Value)
-                            MessageBox.Show("Дедлайн не может быть раньше или равным дате добавления проекта.");
+                            MessageBox.Show("Дедлайн не может быть раньше или равным дате добавления проекта.", appName, MessageBoxButtons.OK, MessageBoxIcon.Information);
                         else if (String.IsNullOrEmpty(projectsNameText.Text))
-                            MessageBox.Show("Имя проекта не может быть пустым.");
+                            MessageBox.Show("Имя проекта не может быть пустым.", appName, MessageBoxButtons.OK, MessageBoxIcon.Information);
                         else if (!projectsNameText.Text.All(allowedchar.Contains))
-                            MessageBox.Show("Название проекта не может содержать спецсимволы.");
+                            MessageBox.Show("Название проекта не может содержать спецсимволы.", appName, MessageBoxButtons.OK, MessageBoxIcon.Information);
                         else
                         {
                             sqlProjects.Open();
@@ -275,15 +276,15 @@ namespace AquaManager
 
                     case "Изменить":
                         if (projectsDeadLinePicker.Value < projectsCreateDatePicker.Value)
-                            MessageBox.Show("Дедлайн не может быть раньше или равным дате добавления проекта.");
+                            MessageBox.Show("Дедлайн не может быть раньше или равным дате добавления проекта.", appName, MessageBoxButtons.OK, MessageBoxIcon.Information);
                         else if (projectsFinishDatePicker.Value < projectsCreateDatePicker.Value && !projectsClearCheck.Checked)
-                            MessageBox.Show("Дата завершения не может быть раньше или равным дате добавления проекта.");
+                            MessageBox.Show("Дата завершения не может быть раньше или равным дате добавления проекта.", appName, MessageBoxButtons.OK, MessageBoxIcon.Information);
                         else if (String.IsNullOrEmpty(projectsNameText.Text))
-                            MessageBox.Show("Имя проекта не может быть пустым.");
+                            MessageBox.Show("Имя проекта не может быть пустым.", appName, MessageBoxButtons.OK, MessageBoxIcon.Information);
                         else if (!projectsNameText.Text.All(allowedchar.Contains))
-                            MessageBox.Show("Название проекта не может содержать спецсимволы.");
+                            MessageBox.Show("Название проекта не может содержать спецсимволы.", appName, MessageBoxButtons.OK, MessageBoxIcon.Information);
                         else if (projectsClearCheck.Checked && projectsStatusCombo.SelectedValue.ToString() == "3")
-                            MessageBox.Show("Проект не может быть завершён без даты.");
+                            MessageBox.Show("Проект не может быть завершён без даты.", appName, MessageBoxButtons.OK, MessageBoxIcon.Information);
                         else
                         {
                             sqlProjects.Open();
@@ -353,7 +354,7 @@ namespace AquaManager
             }
             catch
             {
-                MessageBox.Show("Peace, Death!");
+                MessageBox.Show(errorMessage, appName, MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
         }
 
@@ -412,7 +413,7 @@ namespace AquaManager
             }
             catch
             {
-                MessageBox.Show("Peace, Death!");
+                MessageBox.Show(errorMessage, appName, MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
         }
 
@@ -441,7 +442,7 @@ namespace AquaManager
             }
             catch
             {
-                MessageBox.Show("Peace, Death!");
+                MessageBox.Show(errorMessage, appName, MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
         }
 
@@ -493,12 +494,12 @@ namespace AquaManager
                     }
                     catch
                     {
-                        MessageBox.Show("Peace, Death!");
+                        MessageBox.Show(errorMessage, appName, MessageBoxButtons.OK, MessageBoxIcon.Error);
                     }
                 }
             }
             else
-                MessageBox.Show("Минимальный уровень доступа для изменения: 3");
+                MessageBox.Show("Минимальный уровень доступа для изменения: 3", appName, MessageBoxButtons.OK, MessageBoxIcon.Warning);
         }
 
         private void workersButtonActions(object sender, EventArgs e)
@@ -512,15 +513,15 @@ namespace AquaManager
                 {
                     case "Записать":
                         if (!workersSurnameText.Text.All(allowedchar.Contains))
-                            MessageBox.Show("Фамилия не может содержать спецсимволы.");
+                            MessageBox.Show("Фамилия не может содержать спецсимволы.", appName, MessageBoxButtons.OK, MessageBoxIcon.Information);
                         else if (!workersNameText.Text.All(allowedchar.Contains))
-                            MessageBox.Show("Имя не может содержать спецсимволы.");
+                            MessageBox.Show("Имя не может содержать спецсимволы.", appName, MessageBoxButtons.OK, MessageBoxIcon.Information);
                         else if (!workersMiddleNameText.Text.All(allowedchar.Contains))
-                            MessageBox.Show("Отчество не может содержать спецсимволы.");
+                            MessageBox.Show("Отчество не может содержать спецсимволы.", appName, MessageBoxButtons.OK, MessageBoxIcon.Information);
                         else if (String.IsNullOrEmpty(workersSurnameText.Text))
-                            MessageBox.Show("Поле фамилии не может быть пустым.");
+                            MessageBox.Show("Поле фамилии не может быть пустым.", appName, MessageBoxButtons.OK, MessageBoxIcon.Information);
                         else if (String.IsNullOrEmpty(workersNameText.Text))
-                            MessageBox.Show("Поле имени не может быть пустым.");
+                            MessageBox.Show("Поле имени не может быть пустым.", appName, MessageBoxButtons.OK, MessageBoxIcon.Information);
                         else
                         {
                             sqlWorkers.Open();
@@ -539,15 +540,15 @@ namespace AquaManager
 
                     case "Изменить":
                         if (!workersSurnameText.Text.All(allowedchar.Contains))
-                            MessageBox.Show("Фамилия не может содержать спецсимволы.");
+                            MessageBox.Show("Фамилия не может содержать спецсимволы.", appName, MessageBoxButtons.OK, MessageBoxIcon.Information);
                         else if (!workersNameText.Text.All(allowedchar.Contains))
-                            MessageBox.Show("Имя не может содержать спецсимволы.");
+                            MessageBox.Show("Имя не может содержать спецсимволы.", appName, MessageBoxButtons.OK, MessageBoxIcon.Information);
                         else if (!workersMiddleNameText.Text.All(allowedchar.Contains))
-                            MessageBox.Show("Отчество не может содержать спецсимволы.");
+                            MessageBox.Show("Отчество не может содержать спецсимволы.", appName, MessageBoxButtons.OK, MessageBoxIcon.Information);
                         else if (String.IsNullOrEmpty(workersSurnameText.Text))
-                            MessageBox.Show("Поле фамилии не может быть пустым.");
+                            MessageBox.Show("Поле фамилии не может быть пустым.", appName, MessageBoxButtons.OK, MessageBoxIcon.Information);
                         else if (String.IsNullOrEmpty(workersNameText.Text))
-                            MessageBox.Show("Поле имени не может быть пустым.");
+                            MessageBox.Show("Поле имени не может быть пустым.", appName, MessageBoxButtons.OK, MessageBoxIcon.Information);
                         else
                         {
                             sqlWorkers.Open();
@@ -569,14 +570,25 @@ namespace AquaManager
 
                     case "Удалить":
                         sqlWorkers.Open();
-                        request =
-                            "Delete From Workers " +
-                            "Where id_Workers=" + switchID;
-                        MySqlDataAdapter adapterWorkersDelete = new MySqlDataAdapter(request, sqlWorkers);
-                        DataTable dataWorkersDelete = new DataTable();
-                        adapterWorkersDelete.Fill(dataWorkersDelete);
+                        MySqlDataAdapter adapterCheckWorkers = new MySqlDataAdapter("Select id_Positions from Workers " +
+                            "Where id_Workers=" + switchID, sqlWorkers);
+                        DataTable dataCheckWorkers = new DataTable();
+                        adapterCheckWorkers.Fill(dataCheckWorkers);
                         sqlWorkers.Close();
-                        workersEndAction();
+                        if (Convert.ToInt32(dataCheckWorkers.Rows[0][0]) == 4)
+                            MessageBox.Show("Нельзя удалить администратора.", appName, MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                        else
+                        {
+                            sqlWorkers.Open();
+                            request =
+                                "Delete From Workers " +
+                                "Where id_Workers=" + switchID;
+                            MySqlDataAdapter adapterWorkersDelete = new MySqlDataAdapter(request, sqlWorkers);
+                            DataTable dataWorkersDelete = new DataTable();
+                            adapterWorkersDelete.Fill(dataWorkersDelete);
+                            sqlWorkers.Close();
+                            workersEndAction();
+                        }
                         break;
 
                     case "Добавить":
@@ -603,7 +615,7 @@ namespace AquaManager
             }
             catch
             {
-                MessageBox.Show("Peace, Death!");
+                MessageBox.Show(errorMessage, appName, MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
         }
 
@@ -637,7 +649,7 @@ namespace AquaManager
             }
             catch
             {
-                MessageBox.Show("Peace, Death!");
+                MessageBox.Show(errorMessage, appName, MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
         }
 
@@ -670,12 +682,12 @@ namespace AquaManager
                     }
                     catch
                     {
-                        MessageBox.Show("Peace, Death!");
+                        MessageBox.Show(errorMessage, appName, MessageBoxButtons.OK, MessageBoxIcon.Error);
                     }
                 }
             }
             else
-                MessageBox.Show("Минимальный уровень доступа для изменения: 2");
+                MessageBox.Show("Минимальный уровень доступа для изменения: 2", appName, MessageBoxButtons.OK, MessageBoxIcon.Warning);
         }
 
         private void teamsButtonActions(object sender, EventArgs e)
@@ -689,13 +701,13 @@ namespace AquaManager
                 {
                     case "Записать":
                         if (!teamsNameText.Text.All(allowedchar.Contains))
-                            MessageBox.Show("Название не может содержать спецсимволы.");
+                            MessageBox.Show("Название не может содержать спецсимволы.", appName, MessageBoxButtons.OK, MessageBoxIcon.Information);
                         else if (!teamsEmailText.Text.All(allowedchar.Contains))
-                            MessageBox.Show("Email не может содержать спецсимволы, кроме @.");
+                            MessageBox.Show("Email не может содержать спецсимволы, кроме @.", appName, MessageBoxButtons.OK, MessageBoxIcon.Information);
                         else if (String.IsNullOrEmpty(teamsNameText.Text))
-                            MessageBox.Show("Название не может быть пустым.");
+                            MessageBox.Show("Название не может быть пустым.", appName, MessageBoxButtons.OK, MessageBoxIcon.Information);
                         else if (String.IsNullOrEmpty(teamsEmailText.Text))
-                            MessageBox.Show("Поле email не может быть пустым.");
+                            MessageBox.Show("Поле email не может быть пустым.", appName, MessageBoxButtons.OK, MessageBoxIcon.Information);
                         else
                         {
                             sqlTeams.Open();
@@ -713,13 +725,13 @@ namespace AquaManager
 
                     case "Изменить":
                         if (!teamsNameText.Text.All(allowedchar.Contains))
-                            MessageBox.Show("Название не может содержать спецсимволы.");
+                            MessageBox.Show("Название не может содержать спецсимволы.", appName, MessageBoxButtons.OK, MessageBoxIcon.Information);
                         else if (!teamsEmailText.Text.All(allowedchar.Contains))
-                            MessageBox.Show("Email не может содержать спецсимволы, кроме @.");
+                            MessageBox.Show("Email не может содержать спецсимволы, кроме @.", appName, MessageBoxButtons.OK, MessageBoxIcon.Information);
                         else if (String.IsNullOrEmpty(teamsNameText.Text))
-                            MessageBox.Show("Название не может быть пустым.");
+                            MessageBox.Show("Название не может быть пустым.", appName, MessageBoxButtons.OK, MessageBoxIcon.Information);
                         else if (String.IsNullOrEmpty(teamsEmailText.Text))
-                            MessageBox.Show("Поле email не может быть пустым.");
+                            MessageBox.Show("Поле email не может быть пустым.", appName, MessageBoxButtons.OK, MessageBoxIcon.Information);
                         else
                         {
                             sqlTeams.Open();
@@ -744,7 +756,7 @@ namespace AquaManager
                         adapterCheckTeams.Fill(dataCheckTeams);
                         sqlTeams.Close();
                         if (dataCheckTeams.Rows.Count > 0)
-                            MessageBox.Show("Нельзя удалить команду, которая назначена на проект.");
+                            MessageBox.Show("Нельзя удалить команду, которая назначена на проект.", appName, MessageBoxButtons.OK, MessageBoxIcon.Warning);
                         else
                         {
                             sqlTeams.Open();
@@ -780,7 +792,7 @@ namespace AquaManager
             }
             catch
             {
-                MessageBox.Show("Peace, Death!");
+                MessageBox.Show(errorMessage, appName, MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
         }
 
@@ -801,13 +813,13 @@ namespace AquaManager
             try
             {
                 if (String.IsNullOrEmpty(authLoginText.Text))
-                    MessageBox.Show("Логин не может быть пустым.");
+                    MessageBox.Show("Логин не может быть пустым.", appName, MessageBoxButtons.OK, MessageBoxIcon.Information);
                 else if (String.IsNullOrEmpty(authPasswordText.Text))
-                    MessageBox.Show("Пароль не может быть пустым.");
+                    MessageBox.Show("Пароль не может быть пустым.", appName, MessageBoxButtons.OK, MessageBoxIcon.Information);
                 else if (!authLoginText.Text.All(allowedchar.Contains))
-                    MessageBox.Show("Логин не может содержать спецсимволы.");
+                    MessageBox.Show("Логин не может содержать спецсимволы.", appName, MessageBoxButtons.OK, MessageBoxIcon.Information);
                 else if (!authPasswordText.Text.All(allowedchar.Contains))
-                    MessageBox.Show("Пароль не может содержать спецсимволы.");
+                    MessageBox.Show("Пароль не может содержать спецсимволы.", appName, MessageBoxButtons.OK, MessageBoxIcon.Information);
                 else
                 {
                     byte[] pwdHash = new MD5CryptoServiceProvider().ComputeHash(ASCIIEncoding.ASCII.GetBytes(authPasswordText.Text));
@@ -846,13 +858,13 @@ namespace AquaManager
                     }
                     else
                     {
-                        MessageBox.Show("Неверные данные для авторизации.");
+                        MessageBox.Show("Неверные данные для авторизации.", appName, MessageBoxButtons.OK, MessageBoxIcon.Warning);
                     }
                 }
             }
             catch
             {
-                MessageBox.Show("Peace, Death!");
+                MessageBox.Show(errorMessage, appName, MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
         }
 
@@ -888,7 +900,7 @@ namespace AquaManager
             }
             catch
             {
-                MessageBox.Show("Peace, Death!");
+                MessageBox.Show(errorMessage, appName, MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
         }
 
@@ -912,7 +924,7 @@ namespace AquaManager
             }
             catch
             {
-                MessageBox.Show("Peace, Death!");
+                MessageBox.Show(errorMessage, appName, MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
         }
 
@@ -929,7 +941,7 @@ namespace AquaManager
                 try
                 {
                     switchID = Convert.ToInt32(adminUsersGrid[primkeyAdmin, adminUsersGrid.CurrentRow.Index].Value);
-
+                    adminIDLabel.Text = "Идентификатор сотрудника: " + switchID;
                     sqlAdmin.Open();
                     MySqlDataAdapter adapterAdmin = new MySqlDataAdapter
                         ("Select * from workers " +
@@ -946,7 +958,7 @@ namespace AquaManager
                 }
                 catch
                 {
-                    MessageBox.Show("Peace, Death!");
+                    MessageBox.Show(errorMessage, appName, MessageBoxButtons.OK, MessageBoxIcon.Error);
                 }
             }
         }
@@ -963,17 +975,17 @@ namespace AquaManager
 
                     case "Изменить":
                         if (!adminLoginText.Text.All(allowedchar.Contains))
-                            MessageBox.Show("Логин не может содержать спецсимволы.");
+                            MessageBox.Show("Логин не может содержать спецсимволы.", appName, MessageBoxButtons.OK, MessageBoxIcon.Information);
                         else if (!adminPasswordText.Text.All(allowedchar.Contains))
-                            MessageBox.Show("Пароль не может содержать спецсимволы.");
+                            MessageBox.Show("Пароль не может содержать спецсимволы.", appName, MessageBoxButtons.OK, MessageBoxIcon.Information);
                         else if (!adminEmailText.Text.All(allowedchar.Contains))
-                            MessageBox.Show("Email не может содержать спецсимволы, кроме @.");
+                            MessageBox.Show("Email не может содержать спецсимволы, кроме @.", appName, MessageBoxButtons.OK, MessageBoxIcon.Information);
                         else if (String.IsNullOrEmpty(adminLoginText.Text))
-                            MessageBox.Show("Поле логин не может быть пустым.");
+                            MessageBox.Show("Поле логин не может быть пустым.", appName, MessageBoxButtons.OK, MessageBoxIcon.Information);
                         else if (String.IsNullOrEmpty(adminPasswordText.Text))
-                            MessageBox.Show("Поле пароль не может быть пустым.");
+                            MessageBox.Show("Поле пароль не может быть пустым.", appName, MessageBoxButtons.OK, MessageBoxIcon.Information);
                         else if (String.IsNullOrEmpty(adminEmailText.Text))
-                            MessageBox.Show("Поле email не может быть пустым.");
+                            MessageBox.Show("Поле email не может быть пустым.", appName, MessageBoxButtons.OK, MessageBoxIcon.Information);
                         else
                         {
                             byte[] pwdHash = new MD5CryptoServiceProvider().ComputeHash(ASCIIEncoding.ASCII.GetBytes(adminPasswordText.Text));
@@ -1004,7 +1016,7 @@ namespace AquaManager
             }
             catch
             {
-                MessageBox.Show("Peace, Death!");
+                MessageBox.Show(errorMessage, appName, MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
         }
 

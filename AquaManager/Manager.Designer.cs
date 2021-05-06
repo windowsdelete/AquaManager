@@ -30,6 +30,7 @@ namespace AquaManager
         private void InitializeComponent()
         {
             this.components = new System.ComponentModel.Container();
+            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(Manager));
             this.metroTabs = new MetroFramework.Controls.MetroTabControl();
             this.dashboardTab = new MetroFramework.Controls.MetroTabPage();
             this.metroLabel1 = new MetroFramework.Controls.MetroLabel();
@@ -91,6 +92,14 @@ namespace AquaManager
             this.workersNameText = new MetroFramework.Controls.MetroTextBox();
             this.workersSurnameLabel = new MetroFramework.Controls.MetroLabel();
             this.workersSurnameText = new MetroFramework.Controls.MetroTextBox();
+            this.settingsTab = new MetroFramework.Controls.MetroTabPage();
+            this.logoutButton = new MetroFramework.Controls.MetroButton();
+            this.versionName = new MetroFramework.Controls.MetroLabel();
+            this.companyName = new MetroFramework.Controls.MetroLabel();
+            this.applicationName = new MetroFramework.Controls.MetroLabel();
+            this.logoImage = new System.Windows.Forms.PictureBox();
+            this.autoUpdateTimeCombo = new MetroFramework.Controls.MetroComboBox();
+            this.autoUpdateTimeLabel = new MetroFramework.Controls.MetroLabel();
             this.adminTab = new MetroFramework.Controls.MetroTabPage();
             this.adminActionsLabel = new MetroFramework.Controls.MetroLabel();
             this.adminFirstButton = new MetroFramework.Controls.MetroTile();
@@ -107,9 +116,6 @@ namespace AquaManager
             this.adminNameText = new MetroFramework.Controls.MetroTextBox();
             this.adminSurnameLabel = new MetroFramework.Controls.MetroLabel();
             this.adminSurnameText = new MetroFramework.Controls.MetroTextBox();
-            this.settingsTab = new MetroFramework.Controls.MetroTabPage();
-            this.autoUpdateTimeCombo = new MetroFramework.Controls.MetroComboBox();
-            this.autoUpdateTimeLabel = new MetroFramework.Controls.MetroLabel();
             this.getTime = new System.Windows.Forms.Timer(this.components);
             this.autoUpdateToggle = new MetroFramework.Controls.MetroToggle();
             this.autoUpdateLabel = new MetroFramework.Controls.MetroLabel();
@@ -120,11 +126,7 @@ namespace AquaManager
             this.authPasswordLabel = new MetroFramework.Controls.MetroLabel();
             this.authPasswordText = new MetroFramework.Controls.MetroTextBox();
             this.authPanel = new MetroFramework.Controls.MetroPanel();
-            this.logoImage = new System.Windows.Forms.PictureBox();
-            this.applicationName = new MetroFramework.Controls.MetroLabel();
-            this.companyName = new MetroFramework.Controls.MetroLabel();
-            this.versionName = new MetroFramework.Controls.MetroLabel();
-            this.logoutButton = new MetroFramework.Controls.MetroButton();
+            this.adminIDLabel = new MetroFramework.Controls.MetroLabel();
             this.metroTabs.SuspendLayout();
             this.dashboardTab.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dashboardGrid)).BeginInit();
@@ -137,12 +139,12 @@ namespace AquaManager
             this.workersTab.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.workersGrid)).BeginInit();
             this.workersEditPanel.SuspendLayout();
+            this.settingsTab.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.logoImage)).BeginInit();
             this.adminTab.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.adminUsersGrid)).BeginInit();
             this.adminEditPanel.SuspendLayout();
-            this.settingsTab.SuspendLayout();
             this.authPanel.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.logoImage)).BeginInit();
             this.SuspendLayout();
             // 
             // metroTabs
@@ -155,7 +157,7 @@ namespace AquaManager
             this.metroTabs.Controls.Add(this.adminTab);
             this.metroTabs.Location = new System.Drawing.Point(23, 63);
             this.metroTabs.Name = "metroTabs";
-            this.metroTabs.SelectedIndex = 4;
+            this.metroTabs.SelectedIndex = 5;
             this.metroTabs.Size = new System.Drawing.Size(1091, 475);
             this.metroTabs.Style = MetroFramework.MetroColorStyle.Purple;
             this.metroTabs.TabIndex = 0;
@@ -818,6 +820,99 @@ namespace AquaManager
             this.workersSurnameText.Size = new System.Drawing.Size(237, 23);
             this.workersSurnameText.TabIndex = 9;
             // 
+            // settingsTab
+            // 
+            this.settingsTab.Controls.Add(this.logoutButton);
+            this.settingsTab.Controls.Add(this.versionName);
+            this.settingsTab.Controls.Add(this.companyName);
+            this.settingsTab.Controls.Add(this.applicationName);
+            this.settingsTab.Controls.Add(this.logoImage);
+            this.settingsTab.Controls.Add(this.autoUpdateTimeCombo);
+            this.settingsTab.Controls.Add(this.autoUpdateTimeLabel);
+            this.settingsTab.HorizontalScrollbarBarColor = true;
+            this.settingsTab.Location = new System.Drawing.Point(4, 35);
+            this.settingsTab.Name = "settingsTab";
+            this.settingsTab.Size = new System.Drawing.Size(1083, 436);
+            this.settingsTab.TabIndex = 4;
+            this.settingsTab.Text = "Настройки";
+            this.settingsTab.VerticalScrollbarBarColor = true;
+            // 
+            // logoutButton
+            // 
+            this.logoutButton.Location = new System.Drawing.Point(897, 222);
+            this.logoutButton.Name = "logoutButton";
+            this.logoutButton.Size = new System.Drawing.Size(151, 23);
+            this.logoutButton.Style = MetroFramework.MetroColorStyle.Purple;
+            this.logoutButton.TabIndex = 8;
+            this.logoutButton.Text = "Выйти из учётной записи";
+            this.logoutButton.Click += new System.EventHandler(this.accountLogout);
+            // 
+            // versionName
+            // 
+            this.versionName.AutoSize = true;
+            this.versionName.Location = new System.Drawing.Point(925, 195);
+            this.versionName.Name = "versionName";
+            this.versionName.Size = new System.Drawing.Size(93, 19);
+            this.versionName.TabIndex = 7;
+            this.versionName.Text = "Release 2021.4";
+            // 
+            // companyName
+            // 
+            this.companyName.AutoSize = true;
+            this.companyName.Location = new System.Drawing.Point(922, 176);
+            this.companyName.Name = "companyName";
+            this.companyName.Size = new System.Drawing.Size(107, 19);
+            this.companyName.TabIndex = 6;
+            this.companyName.Text = "ProW Software~";
+            // 
+            // applicationName
+            // 
+            this.applicationName.AutoSize = true;
+            this.applicationName.FontSize = MetroFramework.MetroLabelSize.Tall;
+            this.applicationName.Location = new System.Drawing.Point(916, 151);
+            this.applicationName.Name = "applicationName";
+            this.applicationName.Size = new System.Drawing.Size(120, 25);
+            this.applicationName.TabIndex = 5;
+            this.applicationName.Text = "AquaManager";
+            // 
+            // logoImage
+            // 
+            this.logoImage.BackColor = System.Drawing.Color.Transparent;
+            this.logoImage.Image = global::AquaManager.Properties.Resources.icon;
+            this.logoImage.Location = new System.Drawing.Point(916, 14);
+            this.logoImage.Name = "logoImage";
+            this.logoImage.Size = new System.Drawing.Size(120, 118);
+            this.logoImage.SizeMode = System.Windows.Forms.PictureBoxSizeMode.Zoom;
+            this.logoImage.TabIndex = 4;
+            this.logoImage.TabStop = false;
+            // 
+            // autoUpdateTimeCombo
+            // 
+            this.autoUpdateTimeCombo.FormattingEnabled = true;
+            this.autoUpdateTimeCombo.ItemHeight = 23;
+            this.autoUpdateTimeCombo.Items.AddRange(new object[] {
+            "5 секунд",
+            "6 секунд",
+            "7 секунд",
+            "8 секунд",
+            "9 секунд",
+            "10 секунд"});
+            this.autoUpdateTimeCombo.Location = new System.Drawing.Point(218, 42);
+            this.autoUpdateTimeCombo.Name = "autoUpdateTimeCombo";
+            this.autoUpdateTimeCombo.Size = new System.Drawing.Size(180, 29);
+            this.autoUpdateTimeCombo.TabIndex = 3;
+            this.autoUpdateTimeCombo.SelectedValueChanged += new System.EventHandler(this.autoUpdateTimeChange);
+            // 
+            // autoUpdateTimeLabel
+            // 
+            this.autoUpdateTimeLabel.AutoSize = true;
+            this.autoUpdateTimeLabel.FontSize = MetroFramework.MetroLabelSize.Tall;
+            this.autoUpdateTimeLabel.Location = new System.Drawing.Point(3, 42);
+            this.autoUpdateTimeLabel.Name = "autoUpdateTimeLabel";
+            this.autoUpdateTimeLabel.Size = new System.Drawing.Size(209, 25);
+            this.autoUpdateTimeLabel.TabIndex = 2;
+            this.autoUpdateTimeLabel.Text = "Частота автообновления";
+            // 
             // adminTab
             // 
             this.adminTab.Controls.Add(this.adminActionsLabel);
@@ -879,6 +974,7 @@ namespace AquaManager
             // adminEditPanel
             // 
             this.adminEditPanel.BackColor = System.Drawing.Color.White;
+            this.adminEditPanel.Controls.Add(this.adminIDLabel);
             this.adminEditPanel.Controls.Add(this.adminEmailLabel);
             this.adminEditPanel.Controls.Add(this.adminEmailText);
             this.adminEditPanel.Controls.Add(this.adminPasswordLabel);
@@ -891,7 +987,7 @@ namespace AquaManager
             this.adminEditPanel.Controls.Add(this.adminSurnameText);
             this.adminEditPanel.Location = new System.Drawing.Point(174, 25);
             this.adminEditPanel.Name = "adminEditPanel";
-            this.adminEditPanel.Size = new System.Drawing.Size(404, 238);
+            this.adminEditPanel.Size = new System.Drawing.Size(404, 262);
             this.adminEditPanel.TabIndex = 24;
             this.adminEditPanel.Visible = false;
             // 
@@ -984,50 +1080,6 @@ namespace AquaManager
             this.adminSurnameText.Name = "adminSurnameText";
             this.adminSurnameText.Size = new System.Drawing.Size(237, 23);
             this.adminSurnameText.TabIndex = 9;
-            // 
-            // settingsTab
-            // 
-            this.settingsTab.Controls.Add(this.logoutButton);
-            this.settingsTab.Controls.Add(this.versionName);
-            this.settingsTab.Controls.Add(this.companyName);
-            this.settingsTab.Controls.Add(this.applicationName);
-            this.settingsTab.Controls.Add(this.logoImage);
-            this.settingsTab.Controls.Add(this.autoUpdateTimeCombo);
-            this.settingsTab.Controls.Add(this.autoUpdateTimeLabel);
-            this.settingsTab.HorizontalScrollbarBarColor = true;
-            this.settingsTab.Location = new System.Drawing.Point(4, 35);
-            this.settingsTab.Name = "settingsTab";
-            this.settingsTab.Size = new System.Drawing.Size(1083, 436);
-            this.settingsTab.TabIndex = 4;
-            this.settingsTab.Text = "Настройки";
-            this.settingsTab.VerticalScrollbarBarColor = true;
-            // 
-            // autoUpdateTimeCombo
-            // 
-            this.autoUpdateTimeCombo.FormattingEnabled = true;
-            this.autoUpdateTimeCombo.ItemHeight = 23;
-            this.autoUpdateTimeCombo.Items.AddRange(new object[] {
-            "5 секунд",
-            "6 секунд",
-            "7 секунд",
-            "8 секунд",
-            "9 секунд",
-            "10 секунд"});
-            this.autoUpdateTimeCombo.Location = new System.Drawing.Point(218, 42);
-            this.autoUpdateTimeCombo.Name = "autoUpdateTimeCombo";
-            this.autoUpdateTimeCombo.Size = new System.Drawing.Size(180, 29);
-            this.autoUpdateTimeCombo.TabIndex = 3;
-            this.autoUpdateTimeCombo.SelectedValueChanged += new System.EventHandler(this.autoUpdateTimeChange);
-            // 
-            // autoUpdateTimeLabel
-            // 
-            this.autoUpdateTimeLabel.AutoSize = true;
-            this.autoUpdateTimeLabel.FontSize = MetroFramework.MetroLabelSize.Tall;
-            this.autoUpdateTimeLabel.Location = new System.Drawing.Point(3, 42);
-            this.autoUpdateTimeLabel.Name = "autoUpdateTimeLabel";
-            this.autoUpdateTimeLabel.Size = new System.Drawing.Size(209, 25);
-            this.autoUpdateTimeLabel.TabIndex = 2;
-            this.autoUpdateTimeLabel.Text = "Частота автообновления";
             // 
             // getTime
             // 
@@ -1126,54 +1178,14 @@ namespace AquaManager
             this.authPanel.VerticalScrollbarHighlightOnWheel = false;
             this.authPanel.VerticalScrollbarSize = 10;
             // 
-            // logoImage
+            // adminIDLabel
             // 
-            this.logoImage.BackColor = System.Drawing.Color.Transparent;
-            this.logoImage.Image = global::AquaManager.Properties.Resources.icon;
-            this.logoImage.Location = new System.Drawing.Point(916, 14);
-            this.logoImage.Name = "logoImage";
-            this.logoImage.Size = new System.Drawing.Size(120, 118);
-            this.logoImage.SizeMode = System.Windows.Forms.PictureBoxSizeMode.Zoom;
-            this.logoImage.TabIndex = 4;
-            this.logoImage.TabStop = false;
-            // 
-            // applicationName
-            // 
-            this.applicationName.AutoSize = true;
-            this.applicationName.FontSize = MetroFramework.MetroLabelSize.Tall;
-            this.applicationName.Location = new System.Drawing.Point(916, 151);
-            this.applicationName.Name = "applicationName";
-            this.applicationName.Size = new System.Drawing.Size(120, 25);
-            this.applicationName.TabIndex = 5;
-            this.applicationName.Text = "AquaManager";
-            // 
-            // companyName
-            // 
-            this.companyName.AutoSize = true;
-            this.companyName.Location = new System.Drawing.Point(922, 176);
-            this.companyName.Name = "companyName";
-            this.companyName.Size = new System.Drawing.Size(107, 19);
-            this.companyName.TabIndex = 6;
-            this.companyName.Text = "ProW Software~";
-            // 
-            // versionName
-            // 
-            this.versionName.AutoSize = true;
-            this.versionName.Location = new System.Drawing.Point(925, 195);
-            this.versionName.Name = "versionName";
-            this.versionName.Size = new System.Drawing.Size(93, 19);
-            this.versionName.TabIndex = 7;
-            this.versionName.Text = "Release 2021.4";
-            // 
-            // logoutButton
-            // 
-            this.logoutButton.Location = new System.Drawing.Point(897, 222);
-            this.logoutButton.Name = "logoutButton";
-            this.logoutButton.Size = new System.Drawing.Size(151, 23);
-            this.logoutButton.Style = MetroFramework.MetroColorStyle.Purple;
-            this.logoutButton.TabIndex = 8;
-            this.logoutButton.Text = "Выйти из учётной записи";
-            this.logoutButton.Click += new System.EventHandler(this.accountLogout);
+            this.adminIDLabel.AutoSize = true;
+            this.adminIDLabel.Location = new System.Drawing.Point(104, 227);
+            this.adminIDLabel.Name = "adminIDLabel";
+            this.adminIDLabel.Size = new System.Drawing.Size(191, 19);
+            this.adminIDLabel.TabIndex = 27;
+            this.adminIDLabel.Text = "Идентификатор сотрудника: 0";
             // 
             // Manager
             // 
@@ -1184,6 +1196,7 @@ namespace AquaManager
             this.Controls.Add(this.autoUpdateToggle);
             this.Controls.Add(this.metroTabs);
             this.Controls.Add(this.authPanel);
+            this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
             this.MaximizeBox = false;
             this.Name = "Manager";
             this.Resizable = false;
@@ -1208,16 +1221,16 @@ namespace AquaManager
             ((System.ComponentModel.ISupportInitialize)(this.workersGrid)).EndInit();
             this.workersEditPanel.ResumeLayout(false);
             this.workersEditPanel.PerformLayout();
+            this.settingsTab.ResumeLayout(false);
+            this.settingsTab.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.logoImage)).EndInit();
             this.adminTab.ResumeLayout(false);
             this.adminTab.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.adminUsersGrid)).EndInit();
             this.adminEditPanel.ResumeLayout(false);
             this.adminEditPanel.PerformLayout();
-            this.settingsTab.ResumeLayout(false);
-            this.settingsTab.PerformLayout();
             this.authPanel.ResumeLayout(false);
             this.authPanel.PerformLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.logoImage)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -1320,6 +1333,7 @@ namespace AquaManager
         private MetroFramework.Controls.MetroLabel applicationName;
         private MetroFramework.Controls.MetroLabel versionName;
         private MetroFramework.Controls.MetroButton logoutButton;
+        private MetroFramework.Controls.MetroLabel adminIDLabel;
     }
 }
 
