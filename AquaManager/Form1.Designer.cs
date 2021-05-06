@@ -31,7 +31,9 @@ namespace AquaManager
         {
             this.components = new System.ComponentModel.Container();
             this.metroTabs = new MetroFramework.Controls.MetroTabControl();
-            this.metroTabPage1 = new MetroFramework.Controls.MetroTabPage();
+            this.dashboardTab = new MetroFramework.Controls.MetroTabPage();
+            this.metroLabel1 = new MetroFramework.Controls.MetroLabel();
+            this.dashboardGrid = new System.Windows.Forms.DataGridView();
             this.accessLevelLabel = new MetroFramework.Controls.MetroLabel();
             this.helloLabel = new MetroFramework.Controls.MetroLabel();
             this.theTime = new MetroFramework.Controls.MetroLabel();
@@ -58,7 +60,7 @@ namespace AquaManager
             this.projectsDeadLineLabel = new MetroFramework.Controls.MetroLabel();
             this.projectsTeamCombo = new MetroFramework.Controls.MetroComboBox();
             this.projectsFinishDateLabel = new MetroFramework.Controls.MetroLabel();
-            this.metroTabPage3 = new MetroFramework.Controls.MetroTabPage();
+            this.teamsTab = new MetroFramework.Controls.MetroTabPage();
             this.teamsGrid = new System.Windows.Forms.DataGridView();
             this.teamsFourthButton = new MetroFramework.Controls.MetroTile();
             this.teamsThirdButton = new MetroFramework.Controls.MetroTile();
@@ -70,7 +72,7 @@ namespace AquaManager
             this.teamsEmailText = new MetroFramework.Controls.MetroTextBox();
             this.teamsNameLabel = new MetroFramework.Controls.MetroLabel();
             this.teamsNameText = new MetroFramework.Controls.MetroTextBox();
-            this.metroTabPage4 = new MetroFramework.Controls.MetroTabPage();
+            this.workersTab = new MetroFramework.Controls.MetroTabPage();
             this.workersGrid = new System.Windows.Forms.DataGridView();
             this.workersFourthButton = new MetroFramework.Controls.MetroTile();
             this.workersThirdButton = new MetroFramework.Controls.MetroTile();
@@ -78,8 +80,6 @@ namespace AquaManager
             this.workersFirstButton = new MetroFramework.Controls.MetroTile();
             this.workersSecondButton = new MetroFramework.Controls.MetroTile();
             this.workersEditPanel = new System.Windows.Forms.Panel();
-            this.workersEmailLabel = new MetroFramework.Controls.MetroLabel();
-            this.workersEmailText = new MetroFramework.Controls.MetroTextBox();
             this.workersPositionsLabel = new MetroFramework.Controls.MetroLabel();
             this.workersTeamsLabel = new MetroFramework.Controls.MetroLabel();
             this.workersTeamsCombo = new MetroFramework.Controls.MetroComboBox();
@@ -90,8 +90,12 @@ namespace AquaManager
             this.workersNameText = new MetroFramework.Controls.MetroTextBox();
             this.workersSurnameLabel = new MetroFramework.Controls.MetroLabel();
             this.workersSurnameText = new MetroFramework.Controls.MetroTextBox();
-            this.metroTabPage5 = new MetroFramework.Controls.MetroTabPage();
-            this.metroTabPage6 = new MetroFramework.Controls.MetroTabPage();
+            this.settingsTab = new MetroFramework.Controls.MetroTabPage();
+            this.adminTab = new MetroFramework.Controls.MetroTabPage();
+            this.adminActionsLabel = new MetroFramework.Controls.MetroLabel();
+            this.adminFirstButton = new MetroFramework.Controls.MetroTile();
+            this.adminSecondButton = new MetroFramework.Controls.MetroTile();
+            this.adminUsersGrid = new System.Windows.Forms.DataGridView();
             this.getTime = new System.Windows.Forms.Timer(this.components);
             this.autoUpdateToggle = new MetroFramework.Controls.MetroToggle();
             this.autoUpdateLabel = new MetroFramework.Controls.MetroLabel();
@@ -102,53 +106,89 @@ namespace AquaManager
             this.authPasswordLabel = new MetroFramework.Controls.MetroLabel();
             this.authPasswordText = new MetroFramework.Controls.MetroTextBox();
             this.authPanel = new MetroFramework.Controls.MetroPanel();
-            this.dashboardGrid = new System.Windows.Forms.DataGridView();
-            this.metroLabel1 = new MetroFramework.Controls.MetroLabel();
+            this.adminEditPanel = new System.Windows.Forms.Panel();
+            this.adminPasswordLabel = new MetroFramework.Controls.MetroLabel();
+            this.adminPasswordText = new MetroFramework.Controls.MetroTextBox();
+            this.adminLoginLabel = new MetroFramework.Controls.MetroLabel();
+            this.adminLoginText = new MetroFramework.Controls.MetroTextBox();
+            this.adminNameLabel = new MetroFramework.Controls.MetroLabel();
+            this.adminNameText = new MetroFramework.Controls.MetroTextBox();
+            this.adminSurnameLabel = new MetroFramework.Controls.MetroLabel();
+            this.adminSurnameText = new MetroFramework.Controls.MetroTextBox();
+            this.workersIDLabel = new MetroFramework.Controls.MetroLabel();
+            this.adminEmailLabel = new MetroFramework.Controls.MetroLabel();
+            this.adminEmailText = new MetroFramework.Controls.MetroTextBox();
             this.metroTabs.SuspendLayout();
-            this.metroTabPage1.SuspendLayout();
+            this.dashboardTab.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.dashboardGrid)).BeginInit();
             this.projectsTab.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.projectsGrid)).BeginInit();
             this.projectsEditPanel.SuspendLayout();
-            this.metroTabPage3.SuspendLayout();
+            this.teamsTab.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.teamsGrid)).BeginInit();
             this.teamsEditPanel.SuspendLayout();
-            this.metroTabPage4.SuspendLayout();
+            this.workersTab.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.workersGrid)).BeginInit();
             this.workersEditPanel.SuspendLayout();
+            this.adminTab.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.adminUsersGrid)).BeginInit();
             this.authPanel.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.dashboardGrid)).BeginInit();
+            this.adminEditPanel.SuspendLayout();
             this.SuspendLayout();
             // 
             // metroTabs
             // 
-            this.metroTabs.Controls.Add(this.metroTabPage1);
+            this.metroTabs.Controls.Add(this.dashboardTab);
+            this.metroTabs.Controls.Add(this.adminTab);
             this.metroTabs.Controls.Add(this.projectsTab);
-            this.metroTabs.Controls.Add(this.metroTabPage3);
-            this.metroTabs.Controls.Add(this.metroTabPage4);
-            this.metroTabs.Controls.Add(this.metroTabPage5);
-            this.metroTabs.Controls.Add(this.metroTabPage6);
+            this.metroTabs.Controls.Add(this.teamsTab);
+            this.metroTabs.Controls.Add(this.workersTab);
+            this.metroTabs.Controls.Add(this.settingsTab);
             this.metroTabs.Location = new System.Drawing.Point(23, 63);
             this.metroTabs.Name = "metroTabs";
-            this.metroTabs.SelectedIndex = 0;
+            this.metroTabs.SelectedIndex = 3;
             this.metroTabs.Size = new System.Drawing.Size(1091, 475);
             this.metroTabs.Style = MetroFramework.MetroColorStyle.Purple;
             this.metroTabs.TabIndex = 0;
             this.metroTabs.Visible = false;
             // 
-            // metroTabPage1
+            // dashboardTab
             // 
-            this.metroTabPage1.Controls.Add(this.metroLabel1);
-            this.metroTabPage1.Controls.Add(this.dashboardGrid);
-            this.metroTabPage1.Controls.Add(this.accessLevelLabel);
-            this.metroTabPage1.Controls.Add(this.helloLabel);
-            this.metroTabPage1.Controls.Add(this.theTime);
-            this.metroTabPage1.HorizontalScrollbarBarColor = true;
-            this.metroTabPage1.Location = new System.Drawing.Point(4, 35);
-            this.metroTabPage1.Name = "metroTabPage1";
-            this.metroTabPage1.Size = new System.Drawing.Size(1083, 436);
-            this.metroTabPage1.TabIndex = 0;
-            this.metroTabPage1.Text = "Главная";
-            this.metroTabPage1.VerticalScrollbarBarColor = true;
+            this.dashboardTab.Controls.Add(this.metroLabel1);
+            this.dashboardTab.Controls.Add(this.dashboardGrid);
+            this.dashboardTab.Controls.Add(this.accessLevelLabel);
+            this.dashboardTab.Controls.Add(this.helloLabel);
+            this.dashboardTab.Controls.Add(this.theTime);
+            this.dashboardTab.HorizontalScrollbarBarColor = true;
+            this.dashboardTab.Location = new System.Drawing.Point(4, 35);
+            this.dashboardTab.Name = "dashboardTab";
+            this.dashboardTab.Size = new System.Drawing.Size(1083, 436);
+            this.dashboardTab.TabIndex = 0;
+            this.dashboardTab.Text = "Главная";
+            this.dashboardTab.VerticalScrollbarBarColor = true;
+            // 
+            // metroLabel1
+            // 
+            this.metroLabel1.AutoSize = true;
+            this.metroLabel1.FontSize = MetroFramework.MetroLabelSize.Tall;
+            this.metroLabel1.Location = new System.Drawing.Point(0, 82);
+            this.metroLabel1.Name = "metroLabel1";
+            this.metroLabel1.Size = new System.Drawing.Size(272, 25);
+            this.metroLabel1.TabIndex = 6;
+            this.metroLabel1.Text = "Проекты, находящиеся в работе:";
+            // 
+            // dashboardGrid
+            // 
+            this.dashboardGrid.AllowUserToAddRows = false;
+            this.dashboardGrid.AllowUserToDeleteRows = false;
+            this.dashboardGrid.AutoSizeColumnsMode = System.Windows.Forms.DataGridViewAutoSizeColumnsMode.Fill;
+            this.dashboardGrid.BackgroundColor = System.Drawing.Color.White;
+            this.dashboardGrid.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
+            this.dashboardGrid.Location = new System.Drawing.Point(3, 110);
+            this.dashboardGrid.Name = "dashboardGrid";
+            this.dashboardGrid.ReadOnly = true;
+            this.dashboardGrid.Size = new System.Drawing.Size(1077, 323);
+            this.dashboardGrid.TabIndex = 5;
             // 
             // accessLevelLabel
             // 
@@ -380,6 +420,7 @@ namespace AquaManager
             this.projectsStatusCombo.Location = new System.Drawing.Point(171, 145);
             this.projectsStatusCombo.Name = "projectsStatusCombo";
             this.projectsStatusCombo.Size = new System.Drawing.Size(237, 29);
+            this.projectsStatusCombo.Style = MetroFramework.MetroColorStyle.Purple;
             this.projectsStatusCombo.TabIndex = 18;
             // 
             // projectsCreateDateLabel
@@ -399,6 +440,7 @@ namespace AquaManager
             this.projectsTypeCombo.Location = new System.Drawing.Point(171, 105);
             this.projectsTypeCombo.Name = "projectsTypeCombo";
             this.projectsTypeCombo.Size = new System.Drawing.Size(237, 29);
+            this.projectsTypeCombo.Style = MetroFramework.MetroColorStyle.Purple;
             this.projectsTypeCombo.TabIndex = 17;
             // 
             // projectsDeadLineLabel
@@ -418,6 +460,7 @@ namespace AquaManager
             this.projectsTeamCombo.Location = new System.Drawing.Point(171, 65);
             this.projectsTeamCombo.Name = "projectsTeamCombo";
             this.projectsTeamCombo.Size = new System.Drawing.Size(237, 29);
+            this.projectsTeamCombo.Style = MetroFramework.MetroColorStyle.Purple;
             this.projectsTeamCombo.TabIndex = 16;
             // 
             // projectsFinishDateLabel
@@ -430,22 +473,22 @@ namespace AquaManager
             this.projectsFinishDateLabel.TabIndex = 15;
             this.projectsFinishDateLabel.Text = "Дата завершения";
             // 
-            // metroTabPage3
+            // teamsTab
             // 
-            this.metroTabPage3.Controls.Add(this.teamsGrid);
-            this.metroTabPage3.Controls.Add(this.teamsFourthButton);
-            this.metroTabPage3.Controls.Add(this.teamsThirdButton);
-            this.metroTabPage3.Controls.Add(this.teamsActionsLabel);
-            this.metroTabPage3.Controls.Add(this.teamsFirstButton);
-            this.metroTabPage3.Controls.Add(this.teamsSecondButton);
-            this.metroTabPage3.Controls.Add(this.teamsEditPanel);
-            this.metroTabPage3.HorizontalScrollbarBarColor = true;
-            this.metroTabPage3.Location = new System.Drawing.Point(4, 35);
-            this.metroTabPage3.Name = "metroTabPage3";
-            this.metroTabPage3.Size = new System.Drawing.Size(1083, 436);
-            this.metroTabPage3.TabIndex = 2;
-            this.metroTabPage3.Text = "Команды";
-            this.metroTabPage3.VerticalScrollbarBarColor = true;
+            this.teamsTab.Controls.Add(this.teamsGrid);
+            this.teamsTab.Controls.Add(this.teamsFourthButton);
+            this.teamsTab.Controls.Add(this.teamsThirdButton);
+            this.teamsTab.Controls.Add(this.teamsActionsLabel);
+            this.teamsTab.Controls.Add(this.teamsFirstButton);
+            this.teamsTab.Controls.Add(this.teamsSecondButton);
+            this.teamsTab.Controls.Add(this.teamsEditPanel);
+            this.teamsTab.HorizontalScrollbarBarColor = true;
+            this.teamsTab.Location = new System.Drawing.Point(4, 35);
+            this.teamsTab.Name = "teamsTab";
+            this.teamsTab.Size = new System.Drawing.Size(1083, 436);
+            this.teamsTab.TabIndex = 2;
+            this.teamsTab.Text = "Команды";
+            this.teamsTab.VerticalScrollbarBarColor = true;
             // 
             // teamsGrid
             // 
@@ -561,22 +604,22 @@ namespace AquaManager
             this.teamsNameText.Size = new System.Drawing.Size(237, 23);
             this.teamsNameText.TabIndex = 9;
             // 
-            // metroTabPage4
+            // workersTab
             // 
-            this.metroTabPage4.Controls.Add(this.workersGrid);
-            this.metroTabPage4.Controls.Add(this.workersFourthButton);
-            this.metroTabPage4.Controls.Add(this.workersThirdButton);
-            this.metroTabPage4.Controls.Add(this.workersActionsLabel);
-            this.metroTabPage4.Controls.Add(this.workersFirstButton);
-            this.metroTabPage4.Controls.Add(this.workersSecondButton);
-            this.metroTabPage4.Controls.Add(this.workersEditPanel);
-            this.metroTabPage4.HorizontalScrollbarBarColor = true;
-            this.metroTabPage4.Location = new System.Drawing.Point(4, 35);
-            this.metroTabPage4.Name = "metroTabPage4";
-            this.metroTabPage4.Size = new System.Drawing.Size(1083, 436);
-            this.metroTabPage4.TabIndex = 3;
-            this.metroTabPage4.Text = "Сотрудники";
-            this.metroTabPage4.VerticalScrollbarBarColor = true;
+            this.workersTab.Controls.Add(this.workersGrid);
+            this.workersTab.Controls.Add(this.workersFourthButton);
+            this.workersTab.Controls.Add(this.workersThirdButton);
+            this.workersTab.Controls.Add(this.workersActionsLabel);
+            this.workersTab.Controls.Add(this.workersFirstButton);
+            this.workersTab.Controls.Add(this.workersSecondButton);
+            this.workersTab.Controls.Add(this.workersEditPanel);
+            this.workersTab.HorizontalScrollbarBarColor = true;
+            this.workersTab.Location = new System.Drawing.Point(4, 35);
+            this.workersTab.Name = "workersTab";
+            this.workersTab.Size = new System.Drawing.Size(1083, 436);
+            this.workersTab.TabIndex = 3;
+            this.workersTab.Text = "Сотрудники";
+            this.workersTab.VerticalScrollbarBarColor = true;
             // 
             // workersGrid
             // 
@@ -646,8 +689,7 @@ namespace AquaManager
             // workersEditPanel
             // 
             this.workersEditPanel.BackColor = System.Drawing.Color.White;
-            this.workersEditPanel.Controls.Add(this.workersEmailLabel);
-            this.workersEditPanel.Controls.Add(this.workersEmailText);
+            this.workersEditPanel.Controls.Add(this.workersIDLabel);
             this.workersEditPanel.Controls.Add(this.workersPositionsLabel);
             this.workersEditPanel.Controls.Add(this.workersTeamsLabel);
             this.workersEditPanel.Controls.Add(this.workersTeamsCombo);
@@ -660,27 +702,9 @@ namespace AquaManager
             this.workersEditPanel.Controls.Add(this.workersSurnameText);
             this.workersEditPanel.Location = new System.Drawing.Point(174, 25);
             this.workersEditPanel.Name = "workersEditPanel";
-            this.workersEditPanel.Size = new System.Drawing.Size(404, 288);
+            this.workersEditPanel.Size = new System.Drawing.Size(404, 268);
             this.workersEditPanel.TabIndex = 23;
             this.workersEditPanel.Visible = false;
-            // 
-            // workersEmailLabel
-            // 
-            this.workersEmailLabel.AutoSize = true;
-            this.workersEmailLabel.FontSize = MetroFramework.MetroLabelSize.Tall;
-            this.workersEmailLabel.Location = new System.Drawing.Point(14, 240);
-            this.workersEmailLabel.Name = "workersEmailLabel";
-            this.workersEmailLabel.Size = new System.Drawing.Size(53, 25);
-            this.workersEmailLabel.TabIndex = 23;
-            this.workersEmailLabel.Text = "Email";
-            // 
-            // workersEmailText
-            // 
-            this.workersEmailText.Location = new System.Drawing.Point(118, 242);
-            this.workersEmailText.MaxLength = 50;
-            this.workersEmailText.Name = "workersEmailText";
-            this.workersEmailText.Size = new System.Drawing.Size(237, 23);
-            this.workersEmailText.TabIndex = 24;
             // 
             // workersPositionsLabel
             // 
@@ -709,6 +733,7 @@ namespace AquaManager
             this.workersTeamsCombo.Location = new System.Drawing.Point(118, 196);
             this.workersTeamsCombo.Name = "workersTeamsCombo";
             this.workersTeamsCombo.Size = new System.Drawing.Size(237, 29);
+            this.workersTeamsCombo.Style = MetroFramework.MetroColorStyle.Purple;
             this.workersTeamsCombo.TabIndex = 22;
             // 
             // workersPositionsCombo
@@ -718,6 +743,7 @@ namespace AquaManager
             this.workersPositionsCombo.Location = new System.Drawing.Point(118, 156);
             this.workersPositionsCombo.Name = "workersPositionsCombo";
             this.workersPositionsCombo.Size = new System.Drawing.Size(237, 29);
+            this.workersPositionsCombo.Style = MetroFramework.MetroColorStyle.Purple;
             this.workersPositionsCombo.TabIndex = 21;
             // 
             // workersMiddleNameLabel
@@ -774,25 +800,73 @@ namespace AquaManager
             this.workersSurnameText.Size = new System.Drawing.Size(237, 23);
             this.workersSurnameText.TabIndex = 9;
             // 
-            // metroTabPage5
+            // settingsTab
             // 
-            this.metroTabPage5.HorizontalScrollbarBarColor = true;
-            this.metroTabPage5.Location = new System.Drawing.Point(4, 35);
-            this.metroTabPage5.Name = "metroTabPage5";
-            this.metroTabPage5.Size = new System.Drawing.Size(1083, 436);
-            this.metroTabPage5.TabIndex = 4;
-            this.metroTabPage5.Text = "Настройки";
-            this.metroTabPage5.VerticalScrollbarBarColor = true;
+            this.settingsTab.HorizontalScrollbarBarColor = true;
+            this.settingsTab.Location = new System.Drawing.Point(4, 35);
+            this.settingsTab.Name = "settingsTab";
+            this.settingsTab.Size = new System.Drawing.Size(1083, 436);
+            this.settingsTab.TabIndex = 4;
+            this.settingsTab.Text = "Настройки";
+            this.settingsTab.VerticalScrollbarBarColor = true;
             // 
-            // metroTabPage6
+            // adminTab
             // 
-            this.metroTabPage6.HorizontalScrollbarBarColor = true;
-            this.metroTabPage6.Location = new System.Drawing.Point(4, 35);
-            this.metroTabPage6.Name = "metroTabPage6";
-            this.metroTabPage6.Size = new System.Drawing.Size(1083, 436);
-            this.metroTabPage6.TabIndex = 5;
-            this.metroTabPage6.Text = "Администрирование";
-            this.metroTabPage6.VerticalScrollbarBarColor = true;
+            this.adminTab.Controls.Add(this.adminActionsLabel);
+            this.adminTab.Controls.Add(this.adminFirstButton);
+            this.adminTab.Controls.Add(this.adminSecondButton);
+            this.adminTab.Controls.Add(this.adminUsersGrid);
+            this.adminTab.Controls.Add(this.adminEditPanel);
+            this.adminTab.HorizontalScrollbarBarColor = true;
+            this.adminTab.Location = new System.Drawing.Point(4, 35);
+            this.adminTab.Name = "adminTab";
+            this.adminTab.Size = new System.Drawing.Size(1083, 436);
+            this.adminTab.TabIndex = 5;
+            this.adminTab.Text = "Администрирование";
+            this.adminTab.VerticalScrollbarBarColor = true;
+            // 
+            // adminActionsLabel
+            // 
+            this.adminActionsLabel.AutoSize = true;
+            this.adminActionsLabel.Location = new System.Drawing.Point(3, 3);
+            this.adminActionsLabel.Name = "adminActionsLabel";
+            this.adminActionsLabel.Size = new System.Drawing.Size(66, 19);
+            this.adminActionsLabel.TabIndex = 16;
+            this.adminActionsLabel.Text = "Действия";
+            // 
+            // adminFirstButton
+            // 
+            this.adminFirstButton.Location = new System.Drawing.Point(3, 25);
+            this.adminFirstButton.Name = "adminFirstButton";
+            this.adminFirstButton.Size = new System.Drawing.Size(97, 92);
+            this.adminFirstButton.Style = MetroFramework.MetroColorStyle.Purple;
+            this.adminFirstButton.TabIndex = 15;
+            this.adminFirstButton.Text = "Обновить";
+            this.adminFirstButton.Click += new System.EventHandler(this.adminButtonActions);
+            // 
+            // adminSecondButton
+            // 
+            this.adminSecondButton.Location = new System.Drawing.Point(3, 123);
+            this.adminSecondButton.Name = "adminSecondButton";
+            this.adminSecondButton.Size = new System.Drawing.Size(97, 92);
+            this.adminSecondButton.Style = MetroFramework.MetroColorStyle.Purple;
+            this.adminSecondButton.TabIndex = 17;
+            this.adminSecondButton.Text = "Назад";
+            this.adminSecondButton.Click += new System.EventHandler(this.adminButtonActions);
+            // 
+            // adminUsersGrid
+            // 
+            this.adminUsersGrid.AllowUserToAddRows = false;
+            this.adminUsersGrid.AllowUserToDeleteRows = false;
+            this.adminUsersGrid.AutoSizeColumnsMode = System.Windows.Forms.DataGridViewAutoSizeColumnsMode.Fill;
+            this.adminUsersGrid.BackgroundColor = System.Drawing.Color.White;
+            this.adminUsersGrid.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
+            this.adminUsersGrid.Location = new System.Drawing.Point(106, 3);
+            this.adminUsersGrid.Name = "adminUsersGrid";
+            this.adminUsersGrid.ReadOnly = true;
+            this.adminUsersGrid.Size = new System.Drawing.Size(974, 430);
+            this.adminUsersGrid.TabIndex = 14;
+            this.adminUsersGrid.CellClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.editAdmin);
             // 
             // getTime
             // 
@@ -891,28 +965,123 @@ namespace AquaManager
             this.authPanel.VerticalScrollbarHighlightOnWheel = false;
             this.authPanel.VerticalScrollbarSize = 10;
             // 
-            // dashboardGrid
+            // adminEditPanel
             // 
-            this.dashboardGrid.AllowUserToAddRows = false;
-            this.dashboardGrid.AllowUserToDeleteRows = false;
-            this.dashboardGrid.AutoSizeColumnsMode = System.Windows.Forms.DataGridViewAutoSizeColumnsMode.Fill;
-            this.dashboardGrid.BackgroundColor = System.Drawing.Color.White;
-            this.dashboardGrid.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            this.dashboardGrid.Location = new System.Drawing.Point(3, 110);
-            this.dashboardGrid.Name = "dashboardGrid";
-            this.dashboardGrid.ReadOnly = true;
-            this.dashboardGrid.Size = new System.Drawing.Size(1077, 323);
-            this.dashboardGrid.TabIndex = 5;
+            this.adminEditPanel.BackColor = System.Drawing.Color.White;
+            this.adminEditPanel.Controls.Add(this.adminEmailLabel);
+            this.adminEditPanel.Controls.Add(this.adminEmailText);
+            this.adminEditPanel.Controls.Add(this.adminPasswordLabel);
+            this.adminEditPanel.Controls.Add(this.adminPasswordText);
+            this.adminEditPanel.Controls.Add(this.adminLoginLabel);
+            this.adminEditPanel.Controls.Add(this.adminLoginText);
+            this.adminEditPanel.Controls.Add(this.adminNameLabel);
+            this.adminEditPanel.Controls.Add(this.adminNameText);
+            this.adminEditPanel.Controls.Add(this.adminSurnameLabel);
+            this.adminEditPanel.Controls.Add(this.adminSurnameText);
+            this.adminEditPanel.Location = new System.Drawing.Point(174, 25);
+            this.adminEditPanel.Name = "adminEditPanel";
+            this.adminEditPanel.Size = new System.Drawing.Size(404, 238);
+            this.adminEditPanel.TabIndex = 24;
+            this.adminEditPanel.Visible = false;
             // 
-            // metroLabel1
+            // adminPasswordLabel
             // 
-            this.metroLabel1.AutoSize = true;
-            this.metroLabel1.FontSize = MetroFramework.MetroLabelSize.Tall;
-            this.metroLabel1.Location = new System.Drawing.Point(0, 82);
-            this.metroLabel1.Name = "metroLabel1";
-            this.metroLabel1.Size = new System.Drawing.Size(272, 25);
-            this.metroLabel1.TabIndex = 6;
-            this.metroLabel1.Text = "Проекты, находящиеся в работе:";
+            this.adminPasswordLabel.AutoSize = true;
+            this.adminPasswordLabel.FontSize = MetroFramework.MetroLabelSize.Tall;
+            this.adminPasswordLabel.Location = new System.Drawing.Point(14, 151);
+            this.adminPasswordLabel.Name = "adminPasswordLabel";
+            this.adminPasswordLabel.Size = new System.Drawing.Size(70, 25);
+            this.adminPasswordLabel.TabIndex = 23;
+            this.adminPasswordLabel.Text = "Пароль";
+            // 
+            // adminPasswordText
+            // 
+            this.adminPasswordText.Location = new System.Drawing.Point(118, 153);
+            this.adminPasswordText.MaxLength = 50;
+            this.adminPasswordText.Name = "adminPasswordText";
+            this.adminPasswordText.Size = new System.Drawing.Size(237, 23);
+            this.adminPasswordText.TabIndex = 24;
+            // 
+            // adminLoginLabel
+            // 
+            this.adminLoginLabel.AutoSize = true;
+            this.adminLoginLabel.FontSize = MetroFramework.MetroLabelSize.Tall;
+            this.adminLoginLabel.Location = new System.Drawing.Point(14, 111);
+            this.adminLoginLabel.Name = "adminLoginLabel";
+            this.adminLoginLabel.Size = new System.Drawing.Size(60, 25);
+            this.adminLoginLabel.TabIndex = 12;
+            this.adminLoginLabel.Text = "Логин";
+            // 
+            // adminLoginText
+            // 
+            this.adminLoginText.Location = new System.Drawing.Point(118, 113);
+            this.adminLoginText.MaxLength = 50;
+            this.adminLoginText.Name = "adminLoginText";
+            this.adminLoginText.Size = new System.Drawing.Size(237, 23);
+            this.adminLoginText.TabIndex = 13;
+            // 
+            // adminNameLabel
+            // 
+            this.adminNameLabel.AutoSize = true;
+            this.adminNameLabel.FontSize = MetroFramework.MetroLabelSize.Tall;
+            this.adminNameLabel.Location = new System.Drawing.Point(14, 67);
+            this.adminNameLabel.Name = "adminNameLabel";
+            this.adminNameLabel.Size = new System.Drawing.Size(45, 25);
+            this.adminNameLabel.TabIndex = 10;
+            this.adminNameLabel.Text = "Имя";
+            // 
+            // adminNameText
+            // 
+            this.adminNameText.Location = new System.Drawing.Point(118, 69);
+            this.adminNameText.MaxLength = 50;
+            this.adminNameText.Name = "adminNameText";
+            this.adminNameText.Size = new System.Drawing.Size(237, 23);
+            this.adminNameText.TabIndex = 11;
+            // 
+            // adminSurnameLabel
+            // 
+            this.adminSurnameLabel.AutoSize = true;
+            this.adminSurnameLabel.FontSize = MetroFramework.MetroLabelSize.Tall;
+            this.adminSurnameLabel.Location = new System.Drawing.Point(14, 26);
+            this.adminSurnameLabel.Name = "adminSurnameLabel";
+            this.adminSurnameLabel.Size = new System.Drawing.Size(83, 25);
+            this.adminSurnameLabel.TabIndex = 8;
+            this.adminSurnameLabel.Text = "Фамилия";
+            // 
+            // adminSurnameText
+            // 
+            this.adminSurnameText.Location = new System.Drawing.Point(118, 28);
+            this.adminSurnameText.MaxLength = 50;
+            this.adminSurnameText.Name = "adminSurnameText";
+            this.adminSurnameText.Size = new System.Drawing.Size(237, 23);
+            this.adminSurnameText.TabIndex = 9;
+            // 
+            // workersIDLabel
+            // 
+            this.workersIDLabel.AutoSize = true;
+            this.workersIDLabel.Location = new System.Drawing.Point(103, 240);
+            this.workersIDLabel.Name = "workersIDLabel";
+            this.workersIDLabel.Size = new System.Drawing.Size(191, 19);
+            this.workersIDLabel.TabIndex = 24;
+            this.workersIDLabel.Text = "Идентификатор сотрудника: 0";
+            // 
+            // adminEmailLabel
+            // 
+            this.adminEmailLabel.AutoSize = true;
+            this.adminEmailLabel.FontSize = MetroFramework.MetroLabelSize.Tall;
+            this.adminEmailLabel.Location = new System.Drawing.Point(14, 191);
+            this.adminEmailLabel.Name = "adminEmailLabel";
+            this.adminEmailLabel.Size = new System.Drawing.Size(53, 25);
+            this.adminEmailLabel.TabIndex = 25;
+            this.adminEmailLabel.Text = "Email";
+            // 
+            // adminEmailText
+            // 
+            this.adminEmailText.Location = new System.Drawing.Point(118, 193);
+            this.adminEmailText.MaxLength = 50;
+            this.adminEmailText.Name = "adminEmailText";
+            this.adminEmailText.Size = new System.Drawing.Size(237, 23);
+            this.adminEmailText.TabIndex = 26;
             // 
             // Form1
             // 
@@ -929,26 +1098,31 @@ namespace AquaManager
             this.Style = MetroFramework.MetroColorStyle.Purple;
             this.Text = "AquaManager";
             this.metroTabs.ResumeLayout(false);
-            this.metroTabPage1.ResumeLayout(false);
-            this.metroTabPage1.PerformLayout();
+            this.dashboardTab.ResumeLayout(false);
+            this.dashboardTab.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.dashboardGrid)).EndInit();
             this.projectsTab.ResumeLayout(false);
             this.projectsTab.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.projectsGrid)).EndInit();
             this.projectsEditPanel.ResumeLayout(false);
             this.projectsEditPanel.PerformLayout();
-            this.metroTabPage3.ResumeLayout(false);
-            this.metroTabPage3.PerformLayout();
+            this.teamsTab.ResumeLayout(false);
+            this.teamsTab.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.teamsGrid)).EndInit();
             this.teamsEditPanel.ResumeLayout(false);
             this.teamsEditPanel.PerformLayout();
-            this.metroTabPage4.ResumeLayout(false);
-            this.metroTabPage4.PerformLayout();
+            this.workersTab.ResumeLayout(false);
+            this.workersTab.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.workersGrid)).EndInit();
             this.workersEditPanel.ResumeLayout(false);
             this.workersEditPanel.PerformLayout();
+            this.adminTab.ResumeLayout(false);
+            this.adminTab.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.adminUsersGrid)).EndInit();
             this.authPanel.ResumeLayout(false);
             this.authPanel.PerformLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.dashboardGrid)).EndInit();
+            this.adminEditPanel.ResumeLayout(false);
+            this.adminEditPanel.PerformLayout();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -957,14 +1131,14 @@ namespace AquaManager
         #endregion
 
         private MetroFramework.Controls.MetroTabControl metroTabs;
-        private MetroFramework.Controls.MetroTabPage metroTabPage1;
+        private MetroFramework.Controls.MetroTabPage dashboardTab;
         private MetroFramework.Controls.MetroLabel theTime;
         private System.Windows.Forms.Timer getTime;
         private MetroFramework.Controls.MetroTabPage projectsTab;
-        private MetroFramework.Controls.MetroTabPage metroTabPage3;
-        private MetroFramework.Controls.MetroTabPage metroTabPage4;
-        private MetroFramework.Controls.MetroTabPage metroTabPage5;
-        private MetroFramework.Controls.MetroTabPage metroTabPage6;
+        private MetroFramework.Controls.MetroTabPage teamsTab;
+        private MetroFramework.Controls.MetroTabPage workersTab;
+        private MetroFramework.Controls.MetroTabPage settingsTab;
+        private MetroFramework.Controls.MetroTabPage adminTab;
         private System.Windows.Forms.DataGridView projectsGrid;
         private MetroFramework.Controls.MetroToggle autoUpdateToggle;
         private MetroFramework.Controls.MetroLabel autoUpdateLabel;
@@ -1007,8 +1181,6 @@ namespace AquaManager
         private MetroFramework.Controls.MetroTextBox workersNameText;
         private MetroFramework.Controls.MetroLabel workersSurnameLabel;
         private MetroFramework.Controls.MetroTextBox workersSurnameText;
-        private MetroFramework.Controls.MetroLabel workersEmailLabel;
-        private MetroFramework.Controls.MetroTextBox workersEmailText;
         private System.Windows.Forms.Panel teamsEditPanel;
         private MetroFramework.Controls.MetroLabel teamsEmailLabel;
         private MetroFramework.Controls.MetroTextBox teamsEmailText;
@@ -1030,6 +1202,22 @@ namespace AquaManager
         private MetroFramework.Controls.MetroLabel helloLabel;
         private System.Windows.Forms.DataGridView dashboardGrid;
         private MetroFramework.Controls.MetroLabel metroLabel1;
+        private MetroFramework.Controls.MetroLabel adminActionsLabel;
+        private MetroFramework.Controls.MetroTile adminFirstButton;
+        private MetroFramework.Controls.MetroTile adminSecondButton;
+        private System.Windows.Forms.DataGridView adminUsersGrid;
+        private System.Windows.Forms.Panel adminEditPanel;
+        private MetroFramework.Controls.MetroLabel adminPasswordLabel;
+        private MetroFramework.Controls.MetroTextBox adminPasswordText;
+        private MetroFramework.Controls.MetroLabel adminLoginLabel;
+        private MetroFramework.Controls.MetroTextBox adminLoginText;
+        private MetroFramework.Controls.MetroLabel adminNameLabel;
+        private MetroFramework.Controls.MetroTextBox adminNameText;
+        private MetroFramework.Controls.MetroLabel adminSurnameLabel;
+        private MetroFramework.Controls.MetroTextBox adminSurnameText;
+        private MetroFramework.Controls.MetroLabel workersIDLabel;
+        private MetroFramework.Controls.MetroLabel adminEmailLabel;
+        private MetroFramework.Controls.MetroTextBox adminEmailText;
     }
 }
 

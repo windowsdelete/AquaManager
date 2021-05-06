@@ -18,8 +18,7 @@ namespace AquaManager
         {
             InitializeComponent();
             this.Select();
-            //metroTabs.TabPages.Remove(metroTabPage2);
-            // metroTabs.TabPages.Insert(2, metroTabPage2);
+            metroTabs.TabPages.Remove(adminTab);
         }
 
         // Таймеры обновления контента
@@ -39,6 +38,8 @@ namespace AquaManager
             getWorkers();
             getTeams();
             getDashboard();
+            if (Properties.Settings.Default.accessLevel == 4)
+                getAdmin();
         }
 
         // Автообновление
@@ -48,12 +49,18 @@ namespace AquaManager
             {
                 autoUpadteTimer.Start();
                 projectsSecondButton.Enabled = false;
+                teamsSecondButton.Enabled = false;
+                workersSecondButton.Enabled = false;
+                adminFirstButton.Enabled = false;
                 Properties.Settings.Default.autoUpdater = true;
             }
             else if (!autoUpdateToggle.Checked)
             {
                 autoUpadteTimer.Stop();
                 projectsSecondButton.Enabled = true;
+                teamsSecondButton.Enabled = true;
+                workersSecondButton.Enabled = true;
+                adminFirstButton.Enabled = true;
                 if (autoUpdateToggle.Enabled)
                     Properties.Settings.Default.autoUpdater = false;
             }
@@ -67,6 +74,9 @@ namespace AquaManager
                 autoUpdateToggle.Enabled = false;
                 autoUpdateToggle.Checked = false;
                 projectsSecondButton.Enabled = true;
+                teamsSecondButton.Enabled = true;
+                workersSecondButton.Enabled = true;
+                adminFirstButton.Enabled = true;
             }
             else if (!_needOff)
             {
@@ -82,6 +92,7 @@ namespace AquaManager
         MySqlConnection sqlProjects = new MySqlConnection(Properties.Settings.Default.connectText);
         MySqlConnection sqlWorkers = new MySqlConnection(Properties.Settings.Default.connectText);
         MySqlConnection sqlTeams = new MySqlConnection(Properties.Settings.Default.connectText);
+        MySqlConnection sqlAdmin = new MySqlConnection(Properties.Settings.Default.connectText);
 
         private int switchID;
         string allowedchar = "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZабвгдеёжзийклмнопрстуфхцчшщъыьэюяАБВГДЕЁЖЗИЙКЛМНОПРСТУФХЦЧШЩЪЫЬЭЮЯ0123456789 @.";
@@ -95,6 +106,9 @@ namespace AquaManager
 
         private const string primkeyTeams = "id_Teams", requestTeams = "Select teams.id_Teams, teams.NameTeams, teams.Email " +
             "From teams"; // Команды
+
+        private const string primkeyAdmin = "id_Workers", requestAdmin = "Select workers.id_Workers, workers.Surname, workers.Name, workers.Username, workers.Password, workers.Email " +
+            "From workers"; // Admin
 
 
 
@@ -454,7 +468,7 @@ namespace AquaManager
                 try
                 {
                     switchID = Convert.ToInt32(workersGrid[primkeyWorkers, workersGrid.CurrentRow.Index].Value);
-
+                    workersIDLabel.Text = "Идентификатор сотрудника: " + switchID;
                     //MySqlConnection sqlProjects = new MySqlConnection(Properties.Settings.Default.connectText);
                     sqlWorkers.Open();
                     MySqlDataAdapter adapterWorkers = new MySqlDataAdapter
@@ -474,7 +488,6 @@ namespace AquaManager
                     workersSurnameText.Text = dataWorkers.Rows[0][3].ToString();
                     workersNameText.Text = dataWorkers.Rows[0][4].ToString();
                     workersMiddleNameText.Text = dataWorkers.Rows[0][5].ToString();
-                    workersEmailText.Text = dataWorkers.Rows[0][8].ToString();
 
                     workersPositionsCombo.DataSource = dataWorkersPositionsCombo;
                     workersPositionsCombo.DisplayMember = "NamePositions";
@@ -511,22 +524,18 @@ namespace AquaManager
                             MessageBox.Show("Имя не может содержать спецсимволы.");
                         else if (!workersMiddleNameText.Text.All(allowedchar.Contains))
                             MessageBox.Show("Отчество не может содержать спецсимволы.");
-                        else if (!workersEmailText.Text.All(allowedchar.Contains))
-                            MessageBox.Show("Email не может содержать спецсимволы, кроме @.");
                         else if (String.IsNullOrEmpty(workersSurnameText.Text))
                             MessageBox.Show("Поле фамилии не может быть пустым.");
                         else if (String.IsNullOrEmpty(workersNameText.Text))
                             MessageBox.Show("Поле имени не может быть пустым.");
-                        else if (String.IsNullOrEmpty(workersEmailText.Text))
-                            MessageBox.Show("Поле email не может быть пустым.");
                         else
                         {
                             sqlWorkers.Open();
                             request =
                                 "INSERT INTO workers " +
-                                "(Surname, Name, MiddleName, id_Positions, id_Teams, Email) " +
+                                "(Surname, Name, MiddleName, id_Positions, id_Teams) " +
                                 "values ('" + workersSurnameText.Text + "','" + workersNameText.Text + "','" + workersMiddleNameText.Text + "'," +
-                                workersPositionsCombo.SelectedValue + "," + workersTeamsCombo.SelectedValue + ",'" + workersEmailText.Text + "')";
+                                workersPositionsCombo.SelectedValue + "," + workersTeamsCombo.SelectedValue + ")";
                             MySqlDataAdapter adapterWorkersAdd = new MySqlDataAdapter(request, sqlWorkers);
                             DataTable dataWorkersAdd = new DataTable();
                             adapterWorkersAdd.Fill(dataWorkersAdd);
@@ -542,14 +551,10 @@ namespace AquaManager
                             MessageBox.Show("Имя не может содержать спецсимволы.");
                         else if (!workersMiddleNameText.Text.All(allowedchar.Contains))
                             MessageBox.Show("Отчество не может содержать спецсимволы.");
-                        else if (!workersEmailText.Text.All(allowedchar.Contains))
-                            MessageBox.Show("Email не может содержать спецсимволы, кроме @.");
                         else if (String.IsNullOrEmpty(workersSurnameText.Text))
                             MessageBox.Show("Поле фамилии не может быть пустым.");
                         else if (String.IsNullOrEmpty(workersNameText.Text))
                             MessageBox.Show("Поле имени не может быть пустым.");
-                        else if (String.IsNullOrEmpty(workersEmailText.Text))
-                            MessageBox.Show("Поле email не может быть пустым.");
                         else
                         {
                             sqlWorkers.Open();
@@ -559,8 +564,7 @@ namespace AquaManager
                                 "Name= '" + workersNameText.Text + "', " +
                                 "MiddleName= '" + workersMiddleNameText.Text + "', " +
                                 "id_Positions=" + workersPositionsCombo.SelectedValue + ", " +
-                                "id_Teams=" + workersTeamsCombo.SelectedValue + ", " +
-                                "Email= '" + workersEmailText.Text + "' " +
+                                "id_Teams=" + workersTeamsCombo.SelectedValue + " " +
                                 "Where id_Workers=" + switchID;
                             MySqlDataAdapter adapterWorkersEdit = new MySqlDataAdapter(request, sqlWorkers);
                             DataTable dataWorkersEdit = new DataTable();
@@ -587,12 +591,12 @@ namespace AquaManager
                         workersSurnameText.Text = "";
                         workersNameText.Text = "";
                         workersMiddleNameText.Text = "";
-                        workersEmailText.Text = "";
                         autoUpdateController(true);
                         workersGrid.Visible = false;
                         workersEditPanel.Visible = true;
                         workersFirstButton.Text = "Записать";
                         workersSecondButton.Text = "Назад";
+                        workersIDLabel.Visible = false;
                         break;
 
                     case "Обновить":
@@ -616,6 +620,7 @@ namespace AquaManager
             workersEditPanel.Visible = false;
             workersThirdButton.Visible = false;
             workersFourthButton.Visible = false;
+            workersIDLabel.Visible = true;
             autoUpdateController(false);
             workersFirstButton.Text = "Добавить";
             workersSecondButton.Text = "Обновить";
@@ -741,14 +746,25 @@ namespace AquaManager
 
                     case "Удалить":
                         sqlTeams.Open();
-                        request =
-                            "Delete From Teams " +
-                            "Where id_Teams=" + switchID;
-                        MySqlDataAdapter adapterTeamsDelete = new MySqlDataAdapter(request, sqlTeams);
-                        DataTable dataTeamsDelete = new DataTable();
-                        adapterTeamsDelete.Fill(dataTeamsDelete);
+                        MySqlDataAdapter adapterCheckTeams = new MySqlDataAdapter("Select * from Projects " +
+                            "Where id_Teams=" + switchID, sqlTeams);
+                        DataTable dataCheckTeams = new DataTable();
+                        adapterCheckTeams.Fill(dataCheckTeams);
                         sqlTeams.Close();
-                        teamsEndAction();
+                        if (dataCheckTeams.Rows.Count > 0)
+                            MessageBox.Show("Нельзя удалить команду, которая назначена на проект.");
+                        else
+                        {
+                            sqlTeams.Open();
+                            request =
+                                "Delete From Teams " +
+                                "Where id_Teams=" + switchID;
+                            MySqlDataAdapter adapterTeamsDelete = new MySqlDataAdapter(request, sqlTeams);
+                            DataTable dataTeamsDelete = new DataTable();
+                            adapterTeamsDelete.Fill(dataTeamsDelete);
+                            sqlTeams.Close();
+                            teamsEndAction();
+                        }
                         break;
 
                     case "Добавить":
@@ -831,6 +847,8 @@ namespace AquaManager
                         metroTabs.SelectTab(0);
                         autoUpdateLabel.Visible = true;
                         autoUpdateToggle.Visible = true;
+                        if (Properties.Settings.Default.accessLevel == 4)
+                            metroTabs.TabPages.Insert(5, adminTab);
                         updateAll();
                     }
                     else
@@ -879,9 +897,9 @@ namespace AquaManager
                 }
 
 
-               // requestProjects = "Select projects.id_Projects, projects.NameProjects, teams.NameTeams, type.NameType, status.NameStatus, projects.CreateDate, projects.DeadLine, projects.FinishDate " +
-                   // "From projects, teams, type, status " +
-                    //"Where projects.id_Teams = teams.id_Teams and projects.id_Type = type.id_Type and projects.id_Status = status.id_Status"; // Проекты
+                // requestProjects = "Select projects.id_Projects, projects.NameProjects, teams.NameTeams, type.NameType, status.NameStatus, projects.CreateDate, projects.DeadLine, projects.FinishDate " +
+                // "From projects, teams, type, status " +
+                //"Where projects.id_Teams = teams.id_Teams and projects.id_Type = type.id_Type and projects.id_Status = status.id_Status"; // Проекты
 
                 // Изменение названий столбцов
                 //dashboardGrid.Columns[1].HeaderText = "Название";
@@ -890,6 +908,138 @@ namespace AquaManager
             {
                 MessageBox.Show("Peace, Death!");
             }
+        }
+
+        private void getAdmin()
+        {
+            try
+            {
+                // Получение данных из таблицы
+                //MySqlConnection sqlProjects = new MySqlConnection(Properties.Settings.Default.connectText);
+                sqlAdmin.Open();
+                MySqlDataAdapter adapterAdmin = new MySqlDataAdapter(requestAdmin, sqlAdmin);
+                DataTable dataAdmin = new DataTable();
+                adapterAdmin.Fill(dataAdmin);
+                adminUsersGrid.DataSource = dataAdmin;
+                adminUsersGrid.Columns[primkeyAdmin].Visible = false;
+                sqlAdmin.Close();
+
+                // Изменение названий столбцов
+                adminUsersGrid.Columns[1].HeaderText = "Фамилия";
+                adminUsersGrid.Columns[2].HeaderText = "Имя";
+                adminUsersGrid.Columns[3].HeaderText = "Логин";
+                adminUsersGrid.Columns[4].HeaderText = "Пароль";
+                adminUsersGrid.Columns[5].HeaderText = "Email";
+            }
+            catch
+            {
+                MessageBox.Show("Peace, Death!");
+            }
+        }
+
+        private void editAdmin(object sender, DataGridViewCellEventArgs e)
+        {
+            if (e.RowIndex != -1)
+            {
+                autoUpdateController(true);
+                adminUsersGrid.Visible = false;
+                adminEditPanel.Visible = true;
+                adminSecondButton.Visible = true;
+                adminFirstButton.Text = "Изменить";
+                try
+                {
+                    switchID = Convert.ToInt32(adminUsersGrid[primkeyAdmin, adminUsersGrid.CurrentRow.Index].Value);
+
+                    //MySqlConnection sqlProjects = new MySqlConnection(Properties.Settings.Default.connectText);
+                    sqlAdmin.Open();
+                    MySqlDataAdapter adapterAdmin = new MySqlDataAdapter
+                        ("Select * from workers " +
+                        "Where id_Workers=" + switchID, sqlWorkers);
+                    DataTable dataAdmin = new DataTable();
+                    adapterAdmin.Fill(dataAdmin);
+                    sqlAdmin.Close();
+                    adminSurnameText.Text = dataAdmin.Rows[0][3].ToString();
+                    adminNameText.Text = dataAdmin.Rows[0][4].ToString();
+                    adminLoginText.Text = dataAdmin.Rows[0][6].ToString();
+                    adminEmailText.Text = dataAdmin.Rows[0][8].ToString();
+                    adminSurnameText.Enabled = false;
+                    adminNameText.Enabled = false;
+                    //adminPasswordText.Text = dataAdmin.Rows[0][7].ToString();
+                }
+                catch
+                {
+                    MessageBox.Show("Peace, Death!");
+                }
+            }
+        }
+
+        private void adminButtonActions(object sender, EventArgs e)
+        {
+            try
+            {
+                string selectedButton, request;
+                selectedButton = (sender as MetroFramework.Controls.MetroTile).Text;
+
+                //MySqlConnection sqlProjects = new MySqlConnection(Properties.Settings.Default.connectText);
+                //sqlProjects.Open();
+                switch (selectedButton)
+                {
+
+                    case "Изменить":
+                        if (!adminLoginText.Text.All(allowedchar.Contains))
+                            MessageBox.Show("Логин не может содержать спецсимволы.");
+                        else if (!adminPasswordText.Text.All(allowedchar.Contains))
+                            MessageBox.Show("Пароль не может содержать спецсимволы.");
+                        else if (!adminEmailText.Text.All(allowedchar.Contains))
+                            MessageBox.Show("Email не может содержать спецсимволы, кроме @.");
+                        else if (String.IsNullOrEmpty(adminLoginText.Text))
+                            MessageBox.Show("Поле логин не может быть пустым.");
+                        else if (String.IsNullOrEmpty(adminPasswordText.Text))
+                            MessageBox.Show("Поле пароль не может быть пустым.");
+                        else if (String.IsNullOrEmpty(adminEmailText.Text))
+                            MessageBox.Show("Поле email не может быть пустым.");
+                        else
+                        {
+                            byte[] pwdHash = new MD5CryptoServiceProvider().ComputeHash(ASCIIEncoding.ASCII.GetBytes(adminPasswordText.Text));
+                            string pwdBase = Convert.ToBase64String(pwdHash);
+                            sqlAdmin.Open();
+                            request =
+                                "Update workers set " +
+                                "Username= '" + adminLoginText.Text + "', " +
+                                "Password= '" + pwdBase + "', " +
+                                "Email= '" + adminEmailText.Text + "' " +
+                                "Where id_Workers=" + switchID;
+                            MySqlDataAdapter adapterAdminEdit = new MySqlDataAdapter(request, sqlAdmin);
+                            DataTable dataAdminEdit = new DataTable();
+                            adapterAdminEdit.Fill(dataAdminEdit);
+                            sqlAdmin.Close();
+                            adminEndAction();
+                        }
+                        break;
+
+                    case "Обновить":
+                        updateAll();
+                        break;
+
+                    case "Назад":
+                        adminEndAction();
+                        break;
+                }
+            }
+            catch
+            {
+                MessageBox.Show("Peace, Death!");
+            }
+        }
+
+        private void adminEndAction()
+        {
+            adminUsersGrid.Visible = true;
+            adminEditPanel.Visible = false;
+            autoUpdateController(false);
+            adminFirstButton.Text = "Обновить";
+            adminSecondButton.Visible = false;
+            updateAll();
         }
     }
 }
