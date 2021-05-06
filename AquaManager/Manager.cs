@@ -12,16 +12,15 @@ using System.Windows.Forms;
 
 namespace AquaManager
 {
-    public partial class Form1 : MetroFramework.Forms.MetroForm
+    public partial class Manager : MetroFramework.Forms.MetroForm
     {
-        public Form1()
+        public Manager()
         {
             InitializeComponent();
             this.Select();
             metroTabs.TabPages.Remove(adminTab);
         }
 
-        // Таймеры обновления контента
         private void getTime_Tick(object sender, EventArgs e)
         {
             theTime.Text = "Текущие дата и время: " + DateTime.Now.ToString();
@@ -42,7 +41,6 @@ namespace AquaManager
                 getAdmin();
         }
 
-        // Автообновление
         private void autoUpdateToggle_CheckedChanged(object sender, EventArgs e)
         {
             if (autoUpdateToggle.Checked)
@@ -66,7 +64,6 @@ namespace AquaManager
             }
         }
 
-        // Контроллер автообновления
         private void autoUpdateController(bool _needOff)
         {
             if (_needOff)
@@ -86,7 +83,6 @@ namespace AquaManager
             }
         }
 
-        // Переменные и константы
         MySqlConnection sqlAuth = new MySqlConnection(Properties.Settings.Default.connectText);
         MySqlConnection sqlDashboard = new MySqlConnection(Properties.Settings.Default.connectText);
         MySqlConnection sqlProjects = new MySqlConnection(Properties.Settings.Default.connectText);
@@ -98,17 +94,17 @@ namespace AquaManager
         string allowedchar = "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZабвгдеёжзийклмнопрстуфхцчшщъыьэюяАБВГДЕЁЖЗИЙКЛМНОПРСТУФХЦЧШЩЪЫЬЭЮЯ0123456789 @.";
         private const string primkeyProjects = "id_Projects", requestProjects = "Select projects.id_Projects, projects.NameProjects, teams.NameTeams, type.NameType, status.NameStatus, projects.CreateDate, projects.DeadLine, projects.FinishDate " +
                     "From projects, teams, type, status " +
-                    "Where projects.id_Teams = teams.id_Teams and projects.id_Type = type.id_Type and projects.id_Status = status.id_Status"; // Проекты
+                    "Where projects.id_Teams = teams.id_Teams and projects.id_Type = type.id_Type and projects.id_Status = status.id_Status";
 
         private const string primkeyWorkers = "id_Workers", requestWorkers = "Select workers.id_Workers, workers.Surname, workers.Name, workers.MiddleName, positions.NamePositions, teams.NameTeams, workers.Email " +
             "From workers, positions, teams " +
-            "Where workers.id_Positions = positions.id_Positions and workers.id_Teams = teams.id_Teams"; // Сотрудники
+            "Where workers.id_Positions = positions.id_Positions and workers.id_Teams = teams.id_Teams";
 
         private const string primkeyTeams = "id_Teams", requestTeams = "Select teams.id_Teams, teams.NameTeams, teams.Email " +
-            "From teams"; // Команды
+            "From teams";
 
         private const string primkeyAdmin = "id_Workers", requestAdmin = "Select workers.id_Workers, workers.Surname, workers.Name, workers.Username, workers.Password, workers.Email " +
-            "From workers"; // Admin
+            "From workers";
 
 
 
@@ -116,8 +112,6 @@ namespace AquaManager
         {
             try
             {
-                // Получение данных из таблицы
-                //MySqlConnection sqlProjects = new MySqlConnection(Properties.Settings.Default.connectText);
                 sqlProjects.Open();
                 MySqlDataAdapter adapterProjects = new MySqlDataAdapter(requestProjects, sqlProjects);
                 DataTable dataProjects = new DataTable();
@@ -126,7 +120,6 @@ namespace AquaManager
                 projectsGrid.Columns[primkeyProjects].Visible = false;
                 sqlProjects.Close();
 
-                // Изменение названий столбцов
                 projectsGrid.Columns[1].HeaderText = "Название";
                 projectsGrid.Columns[2].HeaderText = "Команда";
                 projectsGrid.Columns[3].HeaderText = "Тип";
@@ -145,7 +138,6 @@ namespace AquaManager
         {
             try
             {
-                //MySqlConnection sqlProjects = new MySqlConnection(Properties.Settings.Default.connectText);
                 sqlProjects.Open();
                 MySqlDataAdapter adapterProjectsTeamsCombo = new MySqlDataAdapter
                     ("Select * From Teams", sqlProjects);
@@ -181,67 +173,71 @@ namespace AquaManager
 
         private void editProjects(object sender, DataGridViewCellEventArgs e)
         {
-            if (e.RowIndex != -1)
+            if (Properties.Settings.Default.accessLevel != 1)
             {
-                autoUpdateController(true);
-                projectsGrid.Visible = false;
-                projectsEditPanel.Visible = true;
-                projectsCreateDatePicker.Enabled = false;
-                projectsFirstButton.Text = "Изменить";
-                projectsSecondButton.Text = "Удалить";
-                projectsThirdButton.Text = "Назад";
-                projectsThirdButton.Visible = true;
-                try
+                if (e.RowIndex != -1)
                 {
-                    switchID = Convert.ToInt32(projectsGrid[primkeyProjects, projectsGrid.CurrentRow.Index].Value);
+                    autoUpdateController(true);
+                    projectsGrid.Visible = false;
+                    projectsEditPanel.Visible = true;
+                    projectsCreateDatePicker.Enabled = false;
+                    projectsFirstButton.Text = "Изменить";
+                    projectsSecondButton.Text = "Удалить";
+                    projectsThirdButton.Text = "Назад";
+                    projectsThirdButton.Visible = true;
+                    try
+                    {
+                        switchID = Convert.ToInt32(projectsGrid[primkeyProjects, projectsGrid.CurrentRow.Index].Value);
 
-                    //MySqlConnection sqlProjects = new MySqlConnection(Properties.Settings.Default.connectText);
-                    sqlProjects.Open();
-                    MySqlDataAdapter adapterProjects = new MySqlDataAdapter
-                        ("Select * from projects " +
-                        "Where id_Projects=" + switchID, sqlProjects);
-                    DataTable dataProjects = new DataTable();
-                    adapterProjects.Fill(dataProjects);
-                    MySqlDataAdapter adapterProjectsTeamsCombo = new MySqlDataAdapter
-                        ("Select * From Teams", sqlProjects);
-                    DataTable dataProjectsTeamsCombo = new DataTable();
-                    adapterProjectsTeamsCombo.Fill(dataProjectsTeamsCombo);
-                    MySqlDataAdapter adapterProjectsTypeCombo = new MySqlDataAdapter
-                        ("Select * From Type", sqlProjects);
-                    DataTable dataProjectsTypeCombo = new DataTable();
-                    adapterProjectsTypeCombo.Fill(dataProjectsTypeCombo);
-                    MySqlDataAdapter adapterProjectsStatusCombo = new MySqlDataAdapter
-                        ("Select * From Status", sqlProjects);
-                    DataTable dataProjectsStatusCombo = new DataTable();
-                    adapterProjectsStatusCombo.Fill(dataProjectsStatusCombo);
-                    sqlProjects.Close();
-                    projectsNameText.Text = dataProjects.Rows[0][1].ToString();
+                        sqlProjects.Open();
+                        MySqlDataAdapter adapterProjects = new MySqlDataAdapter
+                            ("Select * from projects " +
+                            "Where id_Projects=" + switchID, sqlProjects);
+                        DataTable dataProjects = new DataTable();
+                        adapterProjects.Fill(dataProjects);
+                        MySqlDataAdapter adapterProjectsTeamsCombo = new MySqlDataAdapter
+                            ("Select * From Teams", sqlProjects);
+                        DataTable dataProjectsTeamsCombo = new DataTable();
+                        adapterProjectsTeamsCombo.Fill(dataProjectsTeamsCombo);
+                        MySqlDataAdapter adapterProjectsTypeCombo = new MySqlDataAdapter
+                            ("Select * From Type", sqlProjects);
+                        DataTable dataProjectsTypeCombo = new DataTable();
+                        adapterProjectsTypeCombo.Fill(dataProjectsTypeCombo);
+                        MySqlDataAdapter adapterProjectsStatusCombo = new MySqlDataAdapter
+                            ("Select * From Status", sqlProjects);
+                        DataTable dataProjectsStatusCombo = new DataTable();
+                        adapterProjectsStatusCombo.Fill(dataProjectsStatusCombo);
+                        sqlProjects.Close();
+                        projectsNameText.Text = dataProjects.Rows[0][1].ToString();
 
-                    projectsTeamCombo.DataSource = dataProjectsTeamsCombo;
-                    projectsTeamCombo.DisplayMember = "NameTeams";
-                    projectsTeamCombo.ValueMember = "id_Teams";
-                    projectsTeamCombo.SelectedValue = dataProjects.Rows[0][2];
+                        projectsTeamCombo.DataSource = dataProjectsTeamsCombo;
+                        projectsTeamCombo.DisplayMember = "NameTeams";
+                        projectsTeamCombo.ValueMember = "id_Teams";
+                        projectsTeamCombo.SelectedValue = dataProjects.Rows[0][2];
 
-                    projectsTypeCombo.DataSource = dataProjectsTypeCombo;
-                    projectsTypeCombo.DisplayMember = "NameType";
-                    projectsTypeCombo.ValueMember = "id_Type";
-                    projectsTypeCombo.SelectedValue = dataProjects.Rows[0][3];
+                        projectsTypeCombo.DataSource = dataProjectsTypeCombo;
+                        projectsTypeCombo.DisplayMember = "NameType";
+                        projectsTypeCombo.ValueMember = "id_Type";
+                        projectsTypeCombo.SelectedValue = dataProjects.Rows[0][3];
 
-                    projectsStatusCombo.DataSource = dataProjectsStatusCombo;
-                    projectsStatusCombo.DisplayMember = "NameStatus";
-                    projectsStatusCombo.ValueMember = "id_Status";
-                    projectsStatusCombo.SelectedValue = dataProjects.Rows[0][4];
+                        projectsStatusCombo.DataSource = dataProjectsStatusCombo;
+                        projectsStatusCombo.DisplayMember = "NameStatus";
+                        projectsStatusCombo.ValueMember = "id_Status";
+                        projectsStatusCombo.SelectedValue = dataProjects.Rows[0][4];
 
-                    projectsCreateDatePicker.Value = Convert.ToDateTime(dataProjects.Rows[0][5]);
-                    projectsDeadLinePicker.Value = Convert.ToDateTime(dataProjects.Rows[0][6]);
-                    if (dataProjects.Rows[0][7] != DBNull.Value)
-                        projectsFinishDatePicker.Value = Convert.ToDateTime(dataProjects.Rows[0][7]);
-                }
-                catch
-                {
-                    MessageBox.Show("Peace, Death!");
+                        projectsCreateDatePicker.Value = Convert.ToDateTime(dataProjects.Rows[0][5]);
+                        projectsDeadLinePicker.Value = Convert.ToDateTime(dataProjects.Rows[0][6]);
+                        if (dataProjects.Rows[0][7] != DBNull.Value)
+                            projectsFinishDatePicker.Value = Convert.ToDateTime(dataProjects.Rows[0][7]);
+                    }
+                    catch
+                    {
+                        MessageBox.Show("Peace, Death!");
+                    }
                 }
             }
+            else
+                MessageBox.Show("Минимальный уровень доступа для изменения: 2");
         }
 
         private void projectsButtonActions(object sender, EventArgs e)
@@ -251,8 +247,6 @@ namespace AquaManager
                 string selectedButton, request;
                 selectedButton = (sender as MetroFramework.Controls.MetroTile).Text;
 
-                //MySqlConnection sqlProjects = new MySqlConnection(Properties.Settings.Default.connectText);
-                //sqlProjects.Open();
                 switch (selectedButton)
                 {
                     case "Записать":
@@ -400,8 +394,6 @@ namespace AquaManager
         {
             try
             {
-                // Получение данных из таблицы
-                //MySqlConnection sqlProjects = new MySqlConnection(Properties.Settings.Default.connectText);
                 sqlWorkers.Open();
                 MySqlDataAdapter adapterWorkers = new MySqlDataAdapter(requestWorkers, sqlWorkers);
                 DataTable dataWorkers = new DataTable();
@@ -428,7 +420,6 @@ namespace AquaManager
         {
             try
             {
-                //MySqlConnection sqlProjects = new MySqlConnection(Properties.Settings.Default.connectText);
                 sqlWorkers.Open();
                 MySqlDataAdapter adapterWorkersPositionsCombo = new MySqlDataAdapter
                     ("Select * From Positions", sqlWorkers);
@@ -456,54 +447,58 @@ namespace AquaManager
 
         private void editWorkers(object sender, DataGridViewCellEventArgs e)
         {
-            if (e.RowIndex != -1)
+            if (Properties.Settings.Default.accessLevel != 1 && Properties.Settings.Default.accessLevel != 2)
             {
-                autoUpdateController(true);
-                workersGrid.Visible = false;
-                workersEditPanel.Visible = true;
-                workersFirstButton.Text = "Изменить";
-                workersSecondButton.Text = "Удалить";
-                workersThirdButton.Text = "Назад";
-                workersThirdButton.Visible = true;
-                try
+                if (e.RowIndex != -1)
                 {
-                    switchID = Convert.ToInt32(workersGrid[primkeyWorkers, workersGrid.CurrentRow.Index].Value);
-                    workersIDLabel.Text = "Идентификатор сотрудника: " + switchID;
-                    //MySqlConnection sqlProjects = new MySqlConnection(Properties.Settings.Default.connectText);
-                    sqlWorkers.Open();
-                    MySqlDataAdapter adapterWorkers = new MySqlDataAdapter
-                        ("Select * from workers " +
-                        "Where id_Workers=" + switchID, sqlWorkers);
-                    DataTable dataWorkers = new DataTable();
-                    adapterWorkers.Fill(dataWorkers);
-                    MySqlDataAdapter adapterWorkersPositionsCombo = new MySqlDataAdapter
-                        ("Select * From Positions", sqlWorkers);
-                    DataTable dataWorkersPositionsCombo = new DataTable();
-                    adapterWorkersPositionsCombo.Fill(dataWorkersPositionsCombo);
-                    MySqlDataAdapter adapterWorkersTeamsCombo = new MySqlDataAdapter
-                        ("Select * From Teams", sqlWorkers);
-                    DataTable dataWorkersTeamsCombo = new DataTable();
-                    adapterWorkersTeamsCombo.Fill(dataWorkersTeamsCombo);
-                    sqlWorkers.Close();
-                    workersSurnameText.Text = dataWorkers.Rows[0][3].ToString();
-                    workersNameText.Text = dataWorkers.Rows[0][4].ToString();
-                    workersMiddleNameText.Text = dataWorkers.Rows[0][5].ToString();
+                    autoUpdateController(true);
+                    workersGrid.Visible = false;
+                    workersEditPanel.Visible = true;
+                    workersFirstButton.Text = "Изменить";
+                    workersSecondButton.Text = "Удалить";
+                    workersThirdButton.Text = "Назад";
+                    workersThirdButton.Visible = true;
+                    try
+                    {
+                        switchID = Convert.ToInt32(workersGrid[primkeyWorkers, workersGrid.CurrentRow.Index].Value);
+                        workersIDLabel.Text = "Идентификатор сотрудника: " + switchID;
+                        sqlWorkers.Open();
+                        MySqlDataAdapter adapterWorkers = new MySqlDataAdapter
+                            ("Select * from workers " +
+                            "Where id_Workers=" + switchID, sqlWorkers);
+                        DataTable dataWorkers = new DataTable();
+                        adapterWorkers.Fill(dataWorkers);
+                        MySqlDataAdapter adapterWorkersPositionsCombo = new MySqlDataAdapter
+                            ("Select * From Positions", sqlWorkers);
+                        DataTable dataWorkersPositionsCombo = new DataTable();
+                        adapterWorkersPositionsCombo.Fill(dataWorkersPositionsCombo);
+                        MySqlDataAdapter adapterWorkersTeamsCombo = new MySqlDataAdapter
+                            ("Select * From Teams", sqlWorkers);
+                        DataTable dataWorkersTeamsCombo = new DataTable();
+                        adapterWorkersTeamsCombo.Fill(dataWorkersTeamsCombo);
+                        sqlWorkers.Close();
+                        workersSurnameText.Text = dataWorkers.Rows[0][3].ToString();
+                        workersNameText.Text = dataWorkers.Rows[0][4].ToString();
+                        workersMiddleNameText.Text = dataWorkers.Rows[0][5].ToString();
 
-                    workersPositionsCombo.DataSource = dataWorkersPositionsCombo;
-                    workersPositionsCombo.DisplayMember = "NamePositions";
-                    workersPositionsCombo.ValueMember = "id_Positions";
-                    workersPositionsCombo.SelectedValue = dataWorkers.Rows[0][1];
+                        workersPositionsCombo.DataSource = dataWorkersPositionsCombo;
+                        workersPositionsCombo.DisplayMember = "NamePositions";
+                        workersPositionsCombo.ValueMember = "id_Positions";
+                        workersPositionsCombo.SelectedValue = dataWorkers.Rows[0][1];
 
-                    workersTeamsCombo.DataSource = dataWorkersTeamsCombo;
-                    workersTeamsCombo.DisplayMember = "NameTeams";
-                    workersTeamsCombo.ValueMember = "id_Teams";
-                    workersTeamsCombo.SelectedValue = dataWorkers.Rows[0][2];
-                }
-                catch
-                {
-                    MessageBox.Show("Peace, Death!");
+                        workersTeamsCombo.DataSource = dataWorkersTeamsCombo;
+                        workersTeamsCombo.DisplayMember = "NameTeams";
+                        workersTeamsCombo.ValueMember = "id_Teams";
+                        workersTeamsCombo.SelectedValue = dataWorkers.Rows[0][2];
+                    }
+                    catch
+                    {
+                        MessageBox.Show("Peace, Death!");
+                    }
                 }
             }
+            else
+                MessageBox.Show("Минимальный уровень доступа для изменения: 3");
         }
 
         private void workersButtonActions(object sender, EventArgs e)
@@ -513,8 +508,6 @@ namespace AquaManager
                 string selectedButton, request;
                 selectedButton = (sender as MetroFramework.Controls.MetroTile).Text;
 
-                //MySqlConnection sqlProjects = new MySqlConnection(Properties.Settings.Default.connectText);
-                //sqlProjects.Open();
                 switch (selectedButton)
                 {
                     case "Записать":
@@ -631,8 +624,6 @@ namespace AquaManager
         {
             try
             {
-                // Получение данных из таблицы
-                //MySqlConnection sqlProjects = new MySqlConnection(Properties.Settings.Default.connectText);
                 sqlTeams.Open();
                 MySqlDataAdapter adapterTeams = new MySqlDataAdapter(requestTeams, sqlTeams);
                 DataTable dataTeams = new DataTable();
@@ -641,7 +632,6 @@ namespace AquaManager
                 teamsGrid.Columns[primkeyTeams].Visible = false;
                 sqlTeams.Close();
 
-                // Изменение названий столбцов
                 teamsGrid.Columns[1].HeaderText = "Название";
                 teamsGrid.Columns[2].HeaderText = "Email";
             }
@@ -653,35 +643,39 @@ namespace AquaManager
 
         private void editTeams(object sender, DataGridViewCellEventArgs e)
         {
-            if (e.RowIndex != -1)
+            if (Properties.Settings.Default.accessLevel != 1)
             {
-                autoUpdateController(true);
-                teamsGrid.Visible = false;
-                teamsEditPanel.Visible = true;
-                teamsFirstButton.Text = "Изменить";
-                teamsSecondButton.Text = "Удалить";
-                teamsThirdButton.Text = "Назад";
-                teamsThirdButton.Visible = true;
-                try
+                if (e.RowIndex != -1)
                 {
-                    switchID = Convert.ToInt32(teamsGrid[primkeyTeams, teamsGrid.CurrentRow.Index].Value);
+                    autoUpdateController(true);
+                    teamsGrid.Visible = false;
+                    teamsEditPanel.Visible = true;
+                    teamsFirstButton.Text = "Изменить";
+                    teamsSecondButton.Text = "Удалить";
+                    teamsThirdButton.Text = "Назад";
+                    teamsThirdButton.Visible = true;
+                    try
+                    {
+                        switchID = Convert.ToInt32(teamsGrid[primkeyTeams, teamsGrid.CurrentRow.Index].Value);
 
-                    //MySqlConnection sqlProjects = new MySqlConnection(Properties.Settings.Default.connectText);
-                    sqlTeams.Open();
-                    MySqlDataAdapter adapterTeams = new MySqlDataAdapter
-                        ("Select * from teams " +
-                        "Where id_Teams=" + switchID, sqlWorkers);
-                    DataTable dataTeams = new DataTable();
-                    adapterTeams.Fill(dataTeams);
-                    sqlTeams.Close();
-                    teamsNameText.Text = dataTeams.Rows[0][1].ToString();
-                    teamsEmailText.Text = dataTeams.Rows[0][2].ToString();
-                }
-                catch
-                {
-                    MessageBox.Show("Peace, Death!");
+                        sqlTeams.Open();
+                        MySqlDataAdapter adapterTeams = new MySqlDataAdapter
+                            ("Select * from teams " +
+                            "Where id_Teams=" + switchID, sqlWorkers);
+                        DataTable dataTeams = new DataTable();
+                        adapterTeams.Fill(dataTeams);
+                        sqlTeams.Close();
+                        teamsNameText.Text = dataTeams.Rows[0][1].ToString();
+                        teamsEmailText.Text = dataTeams.Rows[0][2].ToString();
+                    }
+                    catch
+                    {
+                        MessageBox.Show("Peace, Death!");
+                    }
                 }
             }
+            else
+                MessageBox.Show("Минимальный уровень доступа для изменения: 2");
         }
 
         private void teamsButtonActions(object sender, EventArgs e)
@@ -691,8 +685,6 @@ namespace AquaManager
                 string selectedButton, request;
                 selectedButton = (sender as MetroFramework.Controls.MetroTile).Text;
 
-                //MySqlConnection sqlProjects = new MySqlConnection(Properties.Settings.Default.connectText);
-                //sqlProjects.Open();
                 switch (selectedButton)
                 {
                     case "Записать":
@@ -850,6 +842,7 @@ namespace AquaManager
                         if (Properties.Settings.Default.accessLevel == 4)
                             metroTabs.TabPages.Insert(5, adminTab);
                         updateAll();
+                        accessCheck();
                     }
                     else
                     {
@@ -867,15 +860,12 @@ namespace AquaManager
         {
             try
             {
-                // Получение данных из таблицы
-                //MySqlConnection sqlProjects = new MySqlConnection(Properties.Settings.Default.connectText);
                 sqlDashboard.Open();
                 MySqlDataAdapter adapterDashboard = new MySqlDataAdapter("Select id_Teams from Workers " +
                         "Where id_Workers=" + Properties.Settings.Default.whois, sqlDashboard);
                 DataTable dataDashboard = new DataTable();
                 adapterDashboard.Fill(dataDashboard);
                 dashboardGrid.DataSource = dataDashboard;
-                //dashboardGrid.Columns[primkeyDashboard].Visible = false;
                 sqlDashboard.Close();
 
                 if (dataDashboard.Rows.Count > 0)
@@ -895,14 +885,6 @@ namespace AquaManager
                     dashboardGrid.Columns[2].HeaderText = "Дата добавления";
                     dashboardGrid.Columns[3].HeaderText = "Дедлайн";
                 }
-
-
-                // requestProjects = "Select projects.id_Projects, projects.NameProjects, teams.NameTeams, type.NameType, status.NameStatus, projects.CreateDate, projects.DeadLine, projects.FinishDate " +
-                // "From projects, teams, type, status " +
-                //"Where projects.id_Teams = teams.id_Teams and projects.id_Type = type.id_Type and projects.id_Status = status.id_Status"; // Проекты
-
-                // Изменение названий столбцов
-                //dashboardGrid.Columns[1].HeaderText = "Название";
             }
             catch
             {
@@ -914,8 +896,6 @@ namespace AquaManager
         {
             try
             {
-                // Получение данных из таблицы
-                //MySqlConnection sqlProjects = new MySqlConnection(Properties.Settings.Default.connectText);
                 sqlAdmin.Open();
                 MySqlDataAdapter adapterAdmin = new MySqlDataAdapter(requestAdmin, sqlAdmin);
                 DataTable dataAdmin = new DataTable();
@@ -924,7 +904,6 @@ namespace AquaManager
                 adminUsersGrid.Columns[primkeyAdmin].Visible = false;
                 sqlAdmin.Close();
 
-                // Изменение названий столбцов
                 adminUsersGrid.Columns[1].HeaderText = "Фамилия";
                 adminUsersGrid.Columns[2].HeaderText = "Имя";
                 adminUsersGrid.Columns[3].HeaderText = "Логин";
@@ -944,13 +923,13 @@ namespace AquaManager
                 autoUpdateController(true);
                 adminUsersGrid.Visible = false;
                 adminEditPanel.Visible = true;
+                adminPasswordText.Text = "";
                 adminSecondButton.Visible = true;
                 adminFirstButton.Text = "Изменить";
                 try
                 {
                     switchID = Convert.ToInt32(adminUsersGrid[primkeyAdmin, adminUsersGrid.CurrentRow.Index].Value);
 
-                    //MySqlConnection sqlProjects = new MySqlConnection(Properties.Settings.Default.connectText);
                     sqlAdmin.Open();
                     MySqlDataAdapter adapterAdmin = new MySqlDataAdapter
                         ("Select * from workers " +
@@ -964,7 +943,6 @@ namespace AquaManager
                     adminEmailText.Text = dataAdmin.Rows[0][8].ToString();
                     adminSurnameText.Enabled = false;
                     adminNameText.Enabled = false;
-                    //adminPasswordText.Text = dataAdmin.Rows[0][7].ToString();
                 }
                 catch
                 {
@@ -980,8 +958,6 @@ namespace AquaManager
                 string selectedButton, request;
                 selectedButton = (sender as MetroFramework.Controls.MetroTile).Text;
 
-                //MySqlConnection sqlProjects = new MySqlConnection(Properties.Settings.Default.connectText);
-                //sqlProjects.Open();
                 switch (selectedButton)
                 {
 
@@ -1040,6 +1016,39 @@ namespace AquaManager
             adminFirstButton.Text = "Обновить";
             adminSecondButton.Visible = false;
             updateAll();
+        }
+
+        private void accessCheck()
+        {
+            if (Properties.Settings.Default.accessLevel == 1)
+            {
+                projectsFirstButton.Enabled = false;
+                teamsFirstButton.Enabled = false;
+                workersFirstButton.Enabled = false;
+            }
+            else if (Properties.Settings.Default.accessLevel == 2)
+                workersFirstButton.Enabled = false;
+        }
+
+        private void autoUpdateTimeChange(object sender, EventArgs e)
+        {
+            if (autoUpdateTimeCombo.SelectedIndex == 0)
+                autoUpadteTimer.Interval = 5000;
+            else if (autoUpdateTimeCombo.SelectedIndex == 1)
+                autoUpadteTimer.Interval = 6000;
+            else if (autoUpdateTimeCombo.SelectedIndex == 2)
+                autoUpadteTimer.Interval = 7000;
+            else if (autoUpdateTimeCombo.SelectedIndex == 3)
+                autoUpadteTimer.Interval = 8000;
+            else if (autoUpdateTimeCombo.SelectedIndex == 4)
+                autoUpadteTimer.Interval = 9000;
+            else if (autoUpdateTimeCombo.SelectedIndex == 5)
+                autoUpadteTimer.Interval = 10000;
+        }
+
+        private void accountLogout(object sender, EventArgs e)
+        {
+            Application.Restart();
         }
     }
 }

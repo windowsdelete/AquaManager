@@ -32,4 +32,4 @@ C:\GitRepos\AquaManager\AquaManager\obj\Debug\AquaManager.csproj.CoreCompileInpu
 C:\GitRepos\AquaManager\AquaManager\obj\Debug\AquaManager.csproj.CopyComplete
 C:\GitRepos\AquaManager\AquaManager\obj\Debug\AquaManager.exe
 C:\GitRepos\AquaManager\AquaManager\obj\Debug\AquaManager.pdb
-C:\GitRepos\AquaManager\AquaManager\obj\Debug\AquaManager.Form1.resources
+C:\GitRepos\AquaManager\AquaManager\obj\Debug\AquaManager.Manager.resources

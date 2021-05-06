@@ -1,7 +1,7 @@
 ﻿
 namespace AquaManager
 {
-    partial class Form1
+    partial class Manager
     {
         /// <summary>
         /// Обязательная переменная конструктора.
@@ -80,6 +80,7 @@ namespace AquaManager
             this.workersFirstButton = new MetroFramework.Controls.MetroTile();
             this.workersSecondButton = new MetroFramework.Controls.MetroTile();
             this.workersEditPanel = new System.Windows.Forms.Panel();
+            this.workersIDLabel = new MetroFramework.Controls.MetroLabel();
             this.workersPositionsLabel = new MetroFramework.Controls.MetroLabel();
             this.workersTeamsLabel = new MetroFramework.Controls.MetroLabel();
             this.workersTeamsCombo = new MetroFramework.Controls.MetroComboBox();
@@ -90,12 +91,25 @@ namespace AquaManager
             this.workersNameText = new MetroFramework.Controls.MetroTextBox();
             this.workersSurnameLabel = new MetroFramework.Controls.MetroLabel();
             this.workersSurnameText = new MetroFramework.Controls.MetroTextBox();
-            this.settingsTab = new MetroFramework.Controls.MetroTabPage();
             this.adminTab = new MetroFramework.Controls.MetroTabPage();
             this.adminActionsLabel = new MetroFramework.Controls.MetroLabel();
             this.adminFirstButton = new MetroFramework.Controls.MetroTile();
             this.adminSecondButton = new MetroFramework.Controls.MetroTile();
             this.adminUsersGrid = new System.Windows.Forms.DataGridView();
+            this.adminEditPanel = new System.Windows.Forms.Panel();
+            this.adminEmailLabel = new MetroFramework.Controls.MetroLabel();
+            this.adminEmailText = new MetroFramework.Controls.MetroTextBox();
+            this.adminPasswordLabel = new MetroFramework.Controls.MetroLabel();
+            this.adminPasswordText = new MetroFramework.Controls.MetroTextBox();
+            this.adminLoginLabel = new MetroFramework.Controls.MetroLabel();
+            this.adminLoginText = new MetroFramework.Controls.MetroTextBox();
+            this.adminNameLabel = new MetroFramework.Controls.MetroLabel();
+            this.adminNameText = new MetroFramework.Controls.MetroTextBox();
+            this.adminSurnameLabel = new MetroFramework.Controls.MetroLabel();
+            this.adminSurnameText = new MetroFramework.Controls.MetroTextBox();
+            this.settingsTab = new MetroFramework.Controls.MetroTabPage();
+            this.autoUpdateTimeCombo = new MetroFramework.Controls.MetroComboBox();
+            this.autoUpdateTimeLabel = new MetroFramework.Controls.MetroLabel();
             this.getTime = new System.Windows.Forms.Timer(this.components);
             this.autoUpdateToggle = new MetroFramework.Controls.MetroToggle();
             this.autoUpdateLabel = new MetroFramework.Controls.MetroLabel();
@@ -106,18 +120,11 @@ namespace AquaManager
             this.authPasswordLabel = new MetroFramework.Controls.MetroLabel();
             this.authPasswordText = new MetroFramework.Controls.MetroTextBox();
             this.authPanel = new MetroFramework.Controls.MetroPanel();
-            this.adminEditPanel = new System.Windows.Forms.Panel();
-            this.adminPasswordLabel = new MetroFramework.Controls.MetroLabel();
-            this.adminPasswordText = new MetroFramework.Controls.MetroTextBox();
-            this.adminLoginLabel = new MetroFramework.Controls.MetroLabel();
-            this.adminLoginText = new MetroFramework.Controls.MetroTextBox();
-            this.adminNameLabel = new MetroFramework.Controls.MetroLabel();
-            this.adminNameText = new MetroFramework.Controls.MetroTextBox();
-            this.adminSurnameLabel = new MetroFramework.Controls.MetroLabel();
-            this.adminSurnameText = new MetroFramework.Controls.MetroTextBox();
-            this.workersIDLabel = new MetroFramework.Controls.MetroLabel();
-            this.adminEmailLabel = new MetroFramework.Controls.MetroLabel();
-            this.adminEmailText = new MetroFramework.Controls.MetroTextBox();
+            this.logoImage = new System.Windows.Forms.PictureBox();
+            this.applicationName = new MetroFramework.Controls.MetroLabel();
+            this.companyName = new MetroFramework.Controls.MetroLabel();
+            this.versionName = new MetroFramework.Controls.MetroLabel();
+            this.logoutButton = new MetroFramework.Controls.MetroButton();
             this.metroTabs.SuspendLayout();
             this.dashboardTab.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dashboardGrid)).BeginInit();
@@ -132,21 +139,23 @@ namespace AquaManager
             this.workersEditPanel.SuspendLayout();
             this.adminTab.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.adminUsersGrid)).BeginInit();
-            this.authPanel.SuspendLayout();
             this.adminEditPanel.SuspendLayout();
+            this.settingsTab.SuspendLayout();
+            this.authPanel.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.logoImage)).BeginInit();
             this.SuspendLayout();
             // 
             // metroTabs
             // 
             this.metroTabs.Controls.Add(this.dashboardTab);
-            this.metroTabs.Controls.Add(this.adminTab);
             this.metroTabs.Controls.Add(this.projectsTab);
             this.metroTabs.Controls.Add(this.teamsTab);
             this.metroTabs.Controls.Add(this.workersTab);
             this.metroTabs.Controls.Add(this.settingsTab);
+            this.metroTabs.Controls.Add(this.adminTab);
             this.metroTabs.Location = new System.Drawing.Point(23, 63);
             this.metroTabs.Name = "metroTabs";
-            this.metroTabs.SelectedIndex = 3;
+            this.metroTabs.SelectedIndex = 4;
             this.metroTabs.Size = new System.Drawing.Size(1091, 475);
             this.metroTabs.Style = MetroFramework.MetroColorStyle.Purple;
             this.metroTabs.TabIndex = 0;
@@ -706,6 +715,15 @@ namespace AquaManager
             this.workersEditPanel.TabIndex = 23;
             this.workersEditPanel.Visible = false;
             // 
+            // workersIDLabel
+            // 
+            this.workersIDLabel.AutoSize = true;
+            this.workersIDLabel.Location = new System.Drawing.Point(103, 240);
+            this.workersIDLabel.Name = "workersIDLabel";
+            this.workersIDLabel.Size = new System.Drawing.Size(191, 19);
+            this.workersIDLabel.TabIndex = 24;
+            this.workersIDLabel.Text = "Идентификатор сотрудника: 0";
+            // 
             // workersPositionsLabel
             // 
             this.workersPositionsLabel.AutoSize = true;
@@ -800,16 +818,6 @@ namespace AquaManager
             this.workersSurnameText.Size = new System.Drawing.Size(237, 23);
             this.workersSurnameText.TabIndex = 9;
             // 
-            // settingsTab
-            // 
-            this.settingsTab.HorizontalScrollbarBarColor = true;
-            this.settingsTab.Location = new System.Drawing.Point(4, 35);
-            this.settingsTab.Name = "settingsTab";
-            this.settingsTab.Size = new System.Drawing.Size(1083, 436);
-            this.settingsTab.TabIndex = 4;
-            this.settingsTab.Text = "Настройки";
-            this.settingsTab.VerticalScrollbarBarColor = true;
-            // 
             // adminTab
             // 
             this.adminTab.Controls.Add(this.adminActionsLabel);
@@ -867,6 +875,159 @@ namespace AquaManager
             this.adminUsersGrid.Size = new System.Drawing.Size(974, 430);
             this.adminUsersGrid.TabIndex = 14;
             this.adminUsersGrid.CellClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.editAdmin);
+            // 
+            // adminEditPanel
+            // 
+            this.adminEditPanel.BackColor = System.Drawing.Color.White;
+            this.adminEditPanel.Controls.Add(this.adminEmailLabel);
+            this.adminEditPanel.Controls.Add(this.adminEmailText);
+            this.adminEditPanel.Controls.Add(this.adminPasswordLabel);
+            this.adminEditPanel.Controls.Add(this.adminPasswordText);
+            this.adminEditPanel.Controls.Add(this.adminLoginLabel);
+            this.adminEditPanel.Controls.Add(this.adminLoginText);
+            this.adminEditPanel.Controls.Add(this.adminNameLabel);
+            this.adminEditPanel.Controls.Add(this.adminNameText);
+            this.adminEditPanel.Controls.Add(this.adminSurnameLabel);
+            this.adminEditPanel.Controls.Add(this.adminSurnameText);
+            this.adminEditPanel.Location = new System.Drawing.Point(174, 25);
+            this.adminEditPanel.Name = "adminEditPanel";
+            this.adminEditPanel.Size = new System.Drawing.Size(404, 238);
+            this.adminEditPanel.TabIndex = 24;
+            this.adminEditPanel.Visible = false;
+            // 
+            // adminEmailLabel
+            // 
+            this.adminEmailLabel.AutoSize = true;
+            this.adminEmailLabel.FontSize = MetroFramework.MetroLabelSize.Tall;
+            this.adminEmailLabel.Location = new System.Drawing.Point(14, 191);
+            this.adminEmailLabel.Name = "adminEmailLabel";
+            this.adminEmailLabel.Size = new System.Drawing.Size(53, 25);
+            this.adminEmailLabel.TabIndex = 25;
+            this.adminEmailLabel.Text = "Email";
+            // 
+            // adminEmailText
+            // 
+            this.adminEmailText.Location = new System.Drawing.Point(118, 193);
+            this.adminEmailText.MaxLength = 50;
+            this.adminEmailText.Name = "adminEmailText";
+            this.adminEmailText.Size = new System.Drawing.Size(237, 23);
+            this.adminEmailText.TabIndex = 26;
+            // 
+            // adminPasswordLabel
+            // 
+            this.adminPasswordLabel.AutoSize = true;
+            this.adminPasswordLabel.FontSize = MetroFramework.MetroLabelSize.Tall;
+            this.adminPasswordLabel.Location = new System.Drawing.Point(14, 151);
+            this.adminPasswordLabel.Name = "adminPasswordLabel";
+            this.adminPasswordLabel.Size = new System.Drawing.Size(70, 25);
+            this.adminPasswordLabel.TabIndex = 23;
+            this.adminPasswordLabel.Text = "Пароль";
+            // 
+            // adminPasswordText
+            // 
+            this.adminPasswordText.Location = new System.Drawing.Point(118, 153);
+            this.adminPasswordText.MaxLength = 50;
+            this.adminPasswordText.Name = "adminPasswordText";
+            this.adminPasswordText.Size = new System.Drawing.Size(237, 23);
+            this.adminPasswordText.TabIndex = 24;
+            // 
+            // adminLoginLabel
+            // 
+            this.adminLoginLabel.AutoSize = true;
+            this.adminLoginLabel.FontSize = MetroFramework.MetroLabelSize.Tall;
+            this.adminLoginLabel.Location = new System.Drawing.Point(14, 111);
+            this.adminLoginLabel.Name = "adminLoginLabel";
+            this.adminLoginLabel.Size = new System.Drawing.Size(60, 25);
+            this.adminLoginLabel.TabIndex = 12;
+            this.adminLoginLabel.Text = "Логин";
+            // 
+            // adminLoginText
+            // 
+            this.adminLoginText.Location = new System.Drawing.Point(118, 113);
+            this.adminLoginText.MaxLength = 50;
+            this.adminLoginText.Name = "adminLoginText";
+            this.adminLoginText.Size = new System.Drawing.Size(237, 23);
+            this.adminLoginText.TabIndex = 13;
+            // 
+            // adminNameLabel
+            // 
+            this.adminNameLabel.AutoSize = true;
+            this.adminNameLabel.FontSize = MetroFramework.MetroLabelSize.Tall;
+            this.adminNameLabel.Location = new System.Drawing.Point(14, 67);
+            this.adminNameLabel.Name = "adminNameLabel";
+            this.adminNameLabel.Size = new System.Drawing.Size(45, 25);
+            this.adminNameLabel.TabIndex = 10;
+            this.adminNameLabel.Text = "Имя";
+            // 
+            // adminNameText
+            // 
+            this.adminNameText.Location = new System.Drawing.Point(118, 69);
+            this.adminNameText.MaxLength = 50;
+            this.adminNameText.Name = "adminNameText";
+            this.adminNameText.Size = new System.Drawing.Size(237, 23);
+            this.adminNameText.TabIndex = 11;
+            // 
+            // adminSurnameLabel
+            // 
+            this.adminSurnameLabel.AutoSize = true;
+            this.adminSurnameLabel.FontSize = MetroFramework.MetroLabelSize.Tall;
+            this.adminSurnameLabel.Location = new System.Drawing.Point(14, 26);
+            this.adminSurnameLabel.Name = "adminSurnameLabel";
+            this.adminSurnameLabel.Size = new System.Drawing.Size(83, 25);
+            this.adminSurnameLabel.TabIndex = 8;
+            this.adminSurnameLabel.Text = "Фамилия";
+            // 
+            // adminSurnameText
+            // 
+            this.adminSurnameText.Location = new System.Drawing.Point(118, 28);
+            this.adminSurnameText.MaxLength = 50;
+            this.adminSurnameText.Name = "adminSurnameText";
+            this.adminSurnameText.Size = new System.Drawing.Size(237, 23);
+            this.adminSurnameText.TabIndex = 9;
+            // 
+            // settingsTab
+            // 
+            this.settingsTab.Controls.Add(this.logoutButton);
+            this.settingsTab.Controls.Add(this.versionName);
+            this.settingsTab.Controls.Add(this.companyName);
+            this.settingsTab.Controls.Add(this.applicationName);
+            this.settingsTab.Controls.Add(this.logoImage);
+            this.settingsTab.Controls.Add(this.autoUpdateTimeCombo);
+            this.settingsTab.Controls.Add(this.autoUpdateTimeLabel);
+            this.settingsTab.HorizontalScrollbarBarColor = true;
+            this.settingsTab.Location = new System.Drawing.Point(4, 35);
+            this.settingsTab.Name = "settingsTab";
+            this.settingsTab.Size = new System.Drawing.Size(1083, 436);
+            this.settingsTab.TabIndex = 4;
+            this.settingsTab.Text = "Настройки";
+            this.settingsTab.VerticalScrollbarBarColor = true;
+            // 
+            // autoUpdateTimeCombo
+            // 
+            this.autoUpdateTimeCombo.FormattingEnabled = true;
+            this.autoUpdateTimeCombo.ItemHeight = 23;
+            this.autoUpdateTimeCombo.Items.AddRange(new object[] {
+            "5 секунд",
+            "6 секунд",
+            "7 секунд",
+            "8 секунд",
+            "9 секунд",
+            "10 секунд"});
+            this.autoUpdateTimeCombo.Location = new System.Drawing.Point(218, 42);
+            this.autoUpdateTimeCombo.Name = "autoUpdateTimeCombo";
+            this.autoUpdateTimeCombo.Size = new System.Drawing.Size(180, 29);
+            this.autoUpdateTimeCombo.TabIndex = 3;
+            this.autoUpdateTimeCombo.SelectedValueChanged += new System.EventHandler(this.autoUpdateTimeChange);
+            // 
+            // autoUpdateTimeLabel
+            // 
+            this.autoUpdateTimeLabel.AutoSize = true;
+            this.autoUpdateTimeLabel.FontSize = MetroFramework.MetroLabelSize.Tall;
+            this.autoUpdateTimeLabel.Location = new System.Drawing.Point(3, 42);
+            this.autoUpdateTimeLabel.Name = "autoUpdateTimeLabel";
+            this.autoUpdateTimeLabel.Size = new System.Drawing.Size(209, 25);
+            this.autoUpdateTimeLabel.TabIndex = 2;
+            this.autoUpdateTimeLabel.Text = "Частота автообновления";
             // 
             // getTime
             // 
@@ -965,125 +1126,56 @@ namespace AquaManager
             this.authPanel.VerticalScrollbarHighlightOnWheel = false;
             this.authPanel.VerticalScrollbarSize = 10;
             // 
-            // adminEditPanel
+            // logoImage
             // 
-            this.adminEditPanel.BackColor = System.Drawing.Color.White;
-            this.adminEditPanel.Controls.Add(this.adminEmailLabel);
-            this.adminEditPanel.Controls.Add(this.adminEmailText);
-            this.adminEditPanel.Controls.Add(this.adminPasswordLabel);
-            this.adminEditPanel.Controls.Add(this.adminPasswordText);
-            this.adminEditPanel.Controls.Add(this.adminLoginLabel);
-            this.adminEditPanel.Controls.Add(this.adminLoginText);
-            this.adminEditPanel.Controls.Add(this.adminNameLabel);
-            this.adminEditPanel.Controls.Add(this.adminNameText);
-            this.adminEditPanel.Controls.Add(this.adminSurnameLabel);
-            this.adminEditPanel.Controls.Add(this.adminSurnameText);
-            this.adminEditPanel.Location = new System.Drawing.Point(174, 25);
-            this.adminEditPanel.Name = "adminEditPanel";
-            this.adminEditPanel.Size = new System.Drawing.Size(404, 238);
-            this.adminEditPanel.TabIndex = 24;
-            this.adminEditPanel.Visible = false;
+            this.logoImage.BackColor = System.Drawing.Color.Transparent;
+            this.logoImage.Image = global::AquaManager.Properties.Resources.icon;
+            this.logoImage.Location = new System.Drawing.Point(916, 14);
+            this.logoImage.Name = "logoImage";
+            this.logoImage.Size = new System.Drawing.Size(120, 118);
+            this.logoImage.SizeMode = System.Windows.Forms.PictureBoxSizeMode.Zoom;
+            this.logoImage.TabIndex = 4;
+            this.logoImage.TabStop = false;
             // 
-            // adminPasswordLabel
+            // applicationName
             // 
-            this.adminPasswordLabel.AutoSize = true;
-            this.adminPasswordLabel.FontSize = MetroFramework.MetroLabelSize.Tall;
-            this.adminPasswordLabel.Location = new System.Drawing.Point(14, 151);
-            this.adminPasswordLabel.Name = "adminPasswordLabel";
-            this.adminPasswordLabel.Size = new System.Drawing.Size(70, 25);
-            this.adminPasswordLabel.TabIndex = 23;
-            this.adminPasswordLabel.Text = "Пароль";
+            this.applicationName.AutoSize = true;
+            this.applicationName.FontSize = MetroFramework.MetroLabelSize.Tall;
+            this.applicationName.Location = new System.Drawing.Point(916, 151);
+            this.applicationName.Name = "applicationName";
+            this.applicationName.Size = new System.Drawing.Size(120, 25);
+            this.applicationName.TabIndex = 5;
+            this.applicationName.Text = "AquaManager";
             // 
-            // adminPasswordText
+            // companyName
             // 
-            this.adminPasswordText.Location = new System.Drawing.Point(118, 153);
-            this.adminPasswordText.MaxLength = 50;
-            this.adminPasswordText.Name = "adminPasswordText";
-            this.adminPasswordText.Size = new System.Drawing.Size(237, 23);
-            this.adminPasswordText.TabIndex = 24;
+            this.companyName.AutoSize = true;
+            this.companyName.Location = new System.Drawing.Point(922, 176);
+            this.companyName.Name = "companyName";
+            this.companyName.Size = new System.Drawing.Size(107, 19);
+            this.companyName.TabIndex = 6;
+            this.companyName.Text = "ProW Software~";
             // 
-            // adminLoginLabel
+            // versionName
             // 
-            this.adminLoginLabel.AutoSize = true;
-            this.adminLoginLabel.FontSize = MetroFramework.MetroLabelSize.Tall;
-            this.adminLoginLabel.Location = new System.Drawing.Point(14, 111);
-            this.adminLoginLabel.Name = "adminLoginLabel";
-            this.adminLoginLabel.Size = new System.Drawing.Size(60, 25);
-            this.adminLoginLabel.TabIndex = 12;
-            this.adminLoginLabel.Text = "Логин";
+            this.versionName.AutoSize = true;
+            this.versionName.Location = new System.Drawing.Point(925, 195);
+            this.versionName.Name = "versionName";
+            this.versionName.Size = new System.Drawing.Size(93, 19);
+            this.versionName.TabIndex = 7;
+            this.versionName.Text = "Release 2021.4";
             // 
-            // adminLoginText
+            // logoutButton
             // 
-            this.adminLoginText.Location = new System.Drawing.Point(118, 113);
-            this.adminLoginText.MaxLength = 50;
-            this.adminLoginText.Name = "adminLoginText";
-            this.adminLoginText.Size = new System.Drawing.Size(237, 23);
-            this.adminLoginText.TabIndex = 13;
+            this.logoutButton.Location = new System.Drawing.Point(897, 222);
+            this.logoutButton.Name = "logoutButton";
+            this.logoutButton.Size = new System.Drawing.Size(151, 23);
+            this.logoutButton.Style = MetroFramework.MetroColorStyle.Purple;
+            this.logoutButton.TabIndex = 8;
+            this.logoutButton.Text = "Выйти из учётной записи";
+            this.logoutButton.Click += new System.EventHandler(this.accountLogout);
             // 
-            // adminNameLabel
-            // 
-            this.adminNameLabel.AutoSize = true;
-            this.adminNameLabel.FontSize = MetroFramework.MetroLabelSize.Tall;
-            this.adminNameLabel.Location = new System.Drawing.Point(14, 67);
-            this.adminNameLabel.Name = "adminNameLabel";
-            this.adminNameLabel.Size = new System.Drawing.Size(45, 25);
-            this.adminNameLabel.TabIndex = 10;
-            this.adminNameLabel.Text = "Имя";
-            // 
-            // adminNameText
-            // 
-            this.adminNameText.Location = new System.Drawing.Point(118, 69);
-            this.adminNameText.MaxLength = 50;
-            this.adminNameText.Name = "adminNameText";
-            this.adminNameText.Size = new System.Drawing.Size(237, 23);
-            this.adminNameText.TabIndex = 11;
-            // 
-            // adminSurnameLabel
-            // 
-            this.adminSurnameLabel.AutoSize = true;
-            this.adminSurnameLabel.FontSize = MetroFramework.MetroLabelSize.Tall;
-            this.adminSurnameLabel.Location = new System.Drawing.Point(14, 26);
-            this.adminSurnameLabel.Name = "adminSurnameLabel";
-            this.adminSurnameLabel.Size = new System.Drawing.Size(83, 25);
-            this.adminSurnameLabel.TabIndex = 8;
-            this.adminSurnameLabel.Text = "Фамилия";
-            // 
-            // adminSurnameText
-            // 
-            this.adminSurnameText.Location = new System.Drawing.Point(118, 28);
-            this.adminSurnameText.MaxLength = 50;
-            this.adminSurnameText.Name = "adminSurnameText";
-            this.adminSurnameText.Size = new System.Drawing.Size(237, 23);
-            this.adminSurnameText.TabIndex = 9;
-            // 
-            // workersIDLabel
-            // 
-            this.workersIDLabel.AutoSize = true;
-            this.workersIDLabel.Location = new System.Drawing.Point(103, 240);
-            this.workersIDLabel.Name = "workersIDLabel";
-            this.workersIDLabel.Size = new System.Drawing.Size(191, 19);
-            this.workersIDLabel.TabIndex = 24;
-            this.workersIDLabel.Text = "Идентификатор сотрудника: 0";
-            // 
-            // adminEmailLabel
-            // 
-            this.adminEmailLabel.AutoSize = true;
-            this.adminEmailLabel.FontSize = MetroFramework.MetroLabelSize.Tall;
-            this.adminEmailLabel.Location = new System.Drawing.Point(14, 191);
-            this.adminEmailLabel.Name = "adminEmailLabel";
-            this.adminEmailLabel.Size = new System.Drawing.Size(53, 25);
-            this.adminEmailLabel.TabIndex = 25;
-            this.adminEmailLabel.Text = "Email";
-            // 
-            // adminEmailText
-            // 
-            this.adminEmailText.Location = new System.Drawing.Point(118, 193);
-            this.adminEmailText.MaxLength = 50;
-            this.adminEmailText.Name = "adminEmailText";
-            this.adminEmailText.Size = new System.Drawing.Size(237, 23);
-            this.adminEmailText.TabIndex = 26;
-            // 
-            // Form1
+            // Manager
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
@@ -1093,7 +1185,7 @@ namespace AquaManager
             this.Controls.Add(this.metroTabs);
             this.Controls.Add(this.authPanel);
             this.MaximizeBox = false;
-            this.Name = "Form1";
+            this.Name = "Manager";
             this.Resizable = false;
             this.Style = MetroFramework.MetroColorStyle.Purple;
             this.Text = "AquaManager";
@@ -1119,10 +1211,13 @@ namespace AquaManager
             this.adminTab.ResumeLayout(false);
             this.adminTab.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.adminUsersGrid)).EndInit();
-            this.authPanel.ResumeLayout(false);
-            this.authPanel.PerformLayout();
             this.adminEditPanel.ResumeLayout(false);
             this.adminEditPanel.PerformLayout();
+            this.settingsTab.ResumeLayout(false);
+            this.settingsTab.PerformLayout();
+            this.authPanel.ResumeLayout(false);
+            this.authPanel.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.logoImage)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -1218,6 +1313,13 @@ namespace AquaManager
         private MetroFramework.Controls.MetroLabel workersIDLabel;
         private MetroFramework.Controls.MetroLabel adminEmailLabel;
         private MetroFramework.Controls.MetroTextBox adminEmailText;
+        private MetroFramework.Controls.MetroLabel autoUpdateTimeLabel;
+        private MetroFramework.Controls.MetroComboBox autoUpdateTimeCombo;
+        private System.Windows.Forms.PictureBox logoImage;
+        private MetroFramework.Controls.MetroLabel companyName;
+        private MetroFramework.Controls.MetroLabel applicationName;
+        private MetroFramework.Controls.MetroLabel versionName;
+        private MetroFramework.Controls.MetroButton logoutButton;
     }
 }
 
